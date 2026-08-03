@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /cms/
+
+Sitemap: https://hargroveresearch.com/sitemap-index.xml
+LLMs-Context: https://hargroveresearch.com/llms.txt

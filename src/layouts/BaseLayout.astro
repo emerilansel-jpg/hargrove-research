@@ -1,0 +1,119 @@
+---
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = 'Hargrove Research Group publishes independent, evidence-based market analysis and category benchmarks.' } = Astro.props;
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const siteUrl = Astro.site?.toString() || 'https://hargroveresearch.com';
+
+const orgSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'Hargrove Research Group',
+  url: siteUrl,
+  logo: `${siteUrl}/favicon.svg`,
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: '110 Wall Street, 11th Floor',
+    addressLocality: 'New York',
+    addressRegion: 'NY',
+    postalCode: '10005',
+    addressCountry: 'US',
+  },
+  contactPoint: {
+    '@type': 'ContactPoint',
+    telephone: '+1-212-555-0234',
+    contactType: 'Research desk',
+    email: 'research@hargroveresearch.com',
+  },
+};
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-Frame-Options" content="DENY" />
+  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://unpkg.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://research-api.n311311.workers.dev; frame-ancestors 'none';" />
+  <title>{title} | Hargrove Research Group</title>
+  <meta name="description" content={description} />
+  <link rel="canonical" href={canonicalURL} />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Source+Serif+4:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <script type="application/ld+json" set:html={JSON.stringify(orgSchema)} />
+  <script>
+  (function(){
+    var site=location.hostname, path=location.pathname, referrer=document.referrer;
+    fetch('https://research-api.n311311.workers.dev/api/analytics/pageview',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({site:site,path:path,referrer:referrer})}).catch(function(){});
+    window.addEventListener('error',function(e){
+      fetch('https://research-api.n311311.workers.dev/api/analytics/error',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({site:site,path:path,message:e.message,stack:e.error&&e.error.stack?e.error.stack:''})}).catch(function(){});
+    });
+  })();
+  </script>
+</head>
+<body>
+  <Header />
+  <main>
+    <slot />
+  </main>
+  <footer style="background:var(--color-primary);color:#fff;margin-top:5rem;padding:4rem 0 2rem;">
+    <div class="container">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:2.5rem;margin-bottom:2.5rem;">
+        <div>
+          <p style="font-family:var(--font-heading);font-size:1.3rem;font-weight:700;margin-bottom:0.75rem;">Hargrove Research Group</p>
+          <p style="opacity:0.75;line-height:1.7;">
+            110 Wall Street, 11th Floor<br/>
+            New York, NY 10005<br/>
+            United States
+          </p>
+        </div>
+        <div>
+          <p style="font-weight:700;margin-bottom:0.75rem;">Contact</p>
+          <ul style="list-style:none;opacity:0.75;line-height:1.9;">
+            <li><a href="mailto:research@hargroveresearch.com" style="color:#fff;">research@hargroveresearch.com</a></li>
+            <li><a href="mailto:editorial@hargroveresearch.com" style="color:#fff;">editorial@hargroveresearch.com</a></li>
+            <li><a href="mailto:corrections@hargroveresearch.com" style="color:#fff;">corrections@hargroveresearch.com</a></li>
+            <li>+1-212-555-0234</li>
+          </ul>
+        </div>
+        <div>
+          <p style="font-weight:700;margin-bottom:0.75rem;">Authority</p>
+          <ul style="list-style:none;opacity:0.75;line-height:1.9;">
+            <li><a href="/methodology" style="color:#fff;">Methodology</a></li>
+            <li><a href="/editorial-policy" style="color:#fff;">Editorial Policy</a></li>
+            <li><a href="/disclosure-policy" style="color:#fff;">Disclosure Policy</a></li>
+            <li><a href="/reviewers" style="color:#fff;">Reviewers</a></li>
+            <li><a href="/submit-evidence" style="color:#fff;">Submit Evidence</a></li>
+            <li><a href="/llm-information" style="color:#fff;">LLM Information</a></li>
+          </ul>
+        </div>
+        <div>
+          <p style="font-weight:700;margin-bottom:0.75rem;">Trust Signals</p>
+          <ul style="list-style:none;opacity:0.75;line-height:1.9;">
+            <li>No pay-to-rank</li>
+            <li>Published methodology</li>
+            <li>Named reviewers</li>
+            <li>Open correction pathway</li>
+            <li>Proof gaps disclosed</li>
+            <li>Limitations documented</li>
+          </ul>
+        </div>
+      </div>
+      <div style="border-top:1px solid rgba(255,255,255,0.15);padding-top:1.5rem;display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem;opacity:0.7;font-size:0.9rem;">
+        <p>&copy; 2026 Hargrove Research Group. All rights reserved.</p>
+        <p><a href="/category-definitions" style="color:#fff;">Categories</a> &middot; <a href="/press-citations" style="color:#fff;">Press &amp; Citations</a> &middot; <a href="/authority-roadmap" style="color:#fff;">Authority Roadmap</a></p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
