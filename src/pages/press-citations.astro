@@ -2,11 +2,124 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
-<BaseLayout title="Press & Citations" description="Press & Citations — Hargrove Research Group">
-  <section class="section">
-    <div class="container" style="max-width:800px;">
-      <h1 style="margin-bottom:1.5rem;">Press & Citations</h1>
-      <p>Our research is cited by leading publications and institutional decision-makers.</p><p>For press inquiries, contact <a href="mailto:editorial@hargroveresearch.com">editorial@hargroveresearch.com</a>.</p>
+<BaseLayout title="Press & Citations" description="Press & Citations — Hargrove Research Group. Our research is cited by leading publications and institutional decision-makers.">
+
+  <section class="page-hero">
+    <div class="container">
+      <span class="kicker reveal">Media &amp; Citations</span>
+      <h1 class="page-hero__title reveal" data-delay="1">
+        Press &amp; <em>citations</em>
+      </h1>
+      <p class="page-hero__sub reveal" data-delay="2">
+        Our research is cited by leading publications and institutional decision-makers.
+      </p>
     </div>
   </section>
+
+  <section class="section">
+    <div class="container" style="max-width:880px;">
+      <div class="press-contact reveal">
+        <span class="section__label">Press Inquiries</span>
+        <h2 class="text-balance">For press inquiries, contact</h2>
+        <a href="mailto:editorial@hargroveresearch.com" class="press-contact__email mono">
+          editorial@hargroveresearch.com
+        </a>
+      </div>
+
+      <div class="press-cta reveal" data-delay="1">
+        <div>
+          <h2>Citing our research?</h2>
+          <p>Review our citation guidelines and methodology to ensure accurate attribution.</p>
+        </div>
+        <a href="/methodology" class="btn btn-outline">View Methodology</a>
+      </div>
+    </div>
+  </section>
+
 </BaseLayout>
+
+<style>
+  .page-hero {
+    padding: 9rem 0 4rem;
+    background: linear-gradient(180deg, var(--paper-warm) 0%, var(--paper) 100%);
+    border-bottom: 1px solid var(--border-hairline);
+  }
+  .page-hero__title {
+    font-size: clamp(2.5rem, 5.5vw, 4rem);
+    font-weight: 500;
+    letter-spacing: -0.03em;
+    color: var(--ink-900);
+    margin: 1rem 0 1.5rem;
+    line-height: 1.05;
+  }
+  .page-hero__title em {
+    font-style: italic;
+    font-weight: 400;
+    color: var(--copper-500);
+  }
+  .page-hero__sub {
+    font-size: 1.125rem;
+    color: var(--text-700);
+    line-height: 1.7;
+    max-width: 640px;
+  }
+
+  .press-contact {
+    background: #fff;
+    border: 1px solid var(--border-soft);
+    border-radius: var(--radius-lg);
+    padding: 3rem;
+    text-align: center;
+  }
+  .press-contact h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--ink-900);
+    margin: 1rem 0 1.5rem;
+    letter-spacing: -0.02em;
+  }
+  .press-contact__email {
+    display: inline-block;
+    font-size: 1.25rem;
+    color: var(--copper-500);
+    text-decoration: none;
+    padding: 0.75rem 1.75rem;
+    background: var(--copper-100);
+    border-radius: var(--radius-sm);
+    transition: background 200ms var(--ease-out), color 200ms var(--ease-out);
+  }
+  .press-contact__email:hover {
+    background: var(--copper-300);
+    color: #fff;
+  }
+
+  .press-cta {
+    margin-top: 3rem;
+    padding: 2.5rem;
+    background: var(--ink-950);
+    color: #fff;
+    border-radius: var(--radius-lg);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+  .press-cta h2 {
+    color: #fff;
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+  .press-cta p {
+    color: rgba(199, 208, 232, 0.7);
+    margin: 0;
+    font-size: 0.9375rem;
+  }
+
+  @media (max-width: 768px) {
+    .page-hero { padding: 7rem 0 3rem; }
+    .press-contact { padding: 2rem; }
+    .press-cta { flex-direction: column; align-items: flex-start; }
+  }
+</style>

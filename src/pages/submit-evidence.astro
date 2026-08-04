@@ -2,11 +2,265 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
-<BaseLayout title="Submit Evidence" description="Submit Evidence — Hargrove Research Group">
-  <section class="section">
-    <div class="container" style="max-width:800px;">
-      <h1 style="margin-bottom:1.5rem;">Submit Evidence</h1>
-      <p>We welcome evidence submissions that can improve the accuracy and completeness of our research.</p><p>To submit evidence or request a correction, email <a href="mailto:corrections@hargroveresearch.com">corrections@hargroveresearch.com</a> with:</p><ul><li>The specific report or claim in question</li><li>Your supporting evidence (documentation, data, or references)</li><li>Your contact information for follow-up</li></ul>
+<BaseLayout title="Submit Evidence" description="Submit Evidence — Hargrove Research Group. We welcome evidence submissions that can improve the accuracy and completeness of our research.">
+
+  <section class="page-hero">
+    <div class="container">
+      <span class="kicker reveal">Corrections &amp; Submissions</span>
+      <h1 class="page-hero__title reveal" data-delay="1">
+        Submit <em>evidence</em>
+      </h1>
+      <p class="page-hero__sub reveal" data-delay="2">
+        We welcome evidence submissions that can improve the accuracy and completeness
+        of our research.
+      </p>
     </div>
   </section>
+
+  <section class="section">
+    <div class="container" style="max-width:880px;">
+      <div class="submit-intro reveal">
+        <p>
+          To submit evidence or request a correction, email
+          <a href="mailto:corrections@hargroveresearch.com" class="submit-email mono">corrections@hargroveresearch.com</a>
+          with the following:
+        </p>
+      </div>
+
+      <div class="submit-requirements reveal" data-delay="1">
+        <div class="submit-req-card">
+          <span class="submit-req-card__num mono">01</span>
+          <h3>The specific report or claim</h3>
+          <p>Identify the report title, URL, or section where the claim appears.</p>
+        </div>
+        <div class="submit-req-card">
+          <span class="submit-req-card__num mono">02</span>
+          <h3>Your supporting evidence</h3>
+          <p>Provide documentation, data, or references that support your submission.</p>
+        </div>
+        <div class="submit-req-card">
+          <span class="submit-req-card__num mono">03</span>
+          <h3>Your contact information</h3>
+          <p>Include contact details so we can follow up on your submission.</p>
+        </div>
+      </div>
+
+      <div class="submit-form reveal" data-delay="2">
+        <div class="submit-form__header">
+          <span class="section__label">Quick Submit</span>
+          <h2 class="text-balance">Send your submission</h2>
+          <p>Prefer to use your own email client? Write to <a href="mailto:corrections@hargroveresearch.com">corrections@hargroveresearch.com</a>.</p>
+        </div>
+        <form action="mailto:corrections@hargroveresearch.com" method="post" enctype="text/plain" class="submit-form__fields">
+          <div class="submit-form__row">
+            <label class="submit-form__label">
+              <span class="mono">Report or claim</span>
+              <input type="text" name="report" placeholder="Report title or URL" required />
+            </label>
+          </div>
+          <div class="submit-form__row">
+            <label class="submit-form__label">
+              <span class="mono">Your name</span>
+              <input type="text" name="name" placeholder="Your name" required />
+            </label>
+            <label class="submit-form__label">
+              <span class="mono">Your email</span>
+              <input type="email" name="email" placeholder="you@example.com" required />
+            </label>
+          </div>
+          <div class="submit-form__row">
+            <label class="submit-form__label">
+              <span class="mono">Evidence &amp; details</span>
+              <textarea name="evidence" rows="6" placeholder="Describe your evidence, include links or references..." required></textarea>
+            </label>
+          </div>
+          <div class="submit-form__actions">
+            <button type="submit" class="btn">Submit Evidence</button>
+            <p class="submit-form__note">We review every submission. Corrections are published publicly.</p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
 </BaseLayout>
+
+<style>
+  .page-hero {
+    padding: 9rem 0 4rem;
+    background: linear-gradient(180deg, var(--paper-warm) 0%, var(--paper) 100%);
+    border-bottom: 1px solid var(--border-hairline);
+  }
+  .page-hero__title {
+    font-size: clamp(2.5rem, 5.5vw, 4rem);
+    font-weight: 500;
+    letter-spacing: -0.03em;
+    color: var(--ink-900);
+    margin: 1rem 0 1.5rem;
+    line-height: 1.05;
+  }
+  .page-hero__title em {
+    font-style: italic;
+    font-weight: 400;
+    color: var(--copper-500);
+  }
+  .page-hero__sub {
+    font-size: 1.125rem;
+    color: var(--text-700);
+    line-height: 1.7;
+    max-width: 640px;
+  }
+
+  .submit-intro {
+    margin-bottom: 2.5rem;
+  }
+  .submit-intro p {
+    font-size: 1.125rem;
+    color: var(--text-700);
+    line-height: 1.7;
+  }
+  .submit-email {
+    color: var(--copper-500);
+    font-weight: 500;
+    text-decoration: none;
+    border-bottom: 1px solid var(--copper-300);
+    transition: color 200ms var(--ease-out);
+  }
+  .submit-email:hover { color: var(--copper-400); }
+
+  .submit-requirements {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+  }
+  .submit-req-card {
+    background: #fff;
+    border: 1px solid var(--border-soft);
+    border-radius: var(--radius);
+    padding: 2rem;
+    transition: transform 320ms var(--ease-out), box-shadow 320ms var(--ease-out), border-color 320ms var(--ease-out);
+  }
+  .submit-req-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-sm);
+    border-color: var(--copper-400);
+  }
+  .submit-req-card__num {
+    font-size: 0.75rem;
+    color: var(--copper-500);
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    display: block;
+    margin-bottom: 1rem;
+  }
+  .submit-req-card h3 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--ink-900);
+    margin-bottom: 0.5rem;
+  }
+  .submit-req-card p {
+    color: var(--text-500);
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .submit-form {
+    background: #fff;
+    border: 1px solid var(--border-soft);
+    border-radius: var(--radius-lg);
+    padding: 3rem;
+  }
+  .submit-form__header {
+    margin-bottom: 2.5rem;
+  }
+  .submit-form__header h2 {
+    font-size: 1.75rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: var(--ink-900);
+    margin: 0.75rem 0 0.75rem;
+  }
+  .submit-form__header p {
+    color: var(--text-500);
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    margin: 0;
+  }
+  .submit-form__header a {
+    color: var(--copper-500);
+    text-decoration: none;
+  }
+  .submit-form__header a:hover { text-decoration: underline; }
+
+  .submit-form__fields {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  .submit-form__row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+  .submit-form__row:first-child,
+  .submit-form__row:last-child {
+    grid-template-columns: 1fr;
+  }
+  .submit-form__label {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .submit-form__label span {
+    font-size: 0.6875rem;
+    color: var(--copper-500);
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    font-weight: 600;
+  }
+  .submit-form__label input,
+  .submit-form__label textarea {
+    font-family: var(--font-body);
+    font-size: 0.9375rem;
+    color: var(--ink-900);
+    padding: 0.875rem 1rem;
+    border: 1px solid var(--border-soft);
+    border-radius: var(--radius-sm);
+    background: var(--paper-warm);
+    transition: border-color 200ms var(--ease-out), background 200ms var(--ease-out), box-shadow 200ms var(--ease-out);
+    outline: none;
+    resize: vertical;
+  }
+  .submit-form__label input:focus,
+  .submit-form__label textarea:focus {
+    border-color: var(--copper-400);
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(240, 178, 107, 0.12);
+  }
+  .submit-form__label input::placeholder,
+  .submit-form__label textarea::placeholder {
+    color: var(--text-400);
+  }
+
+  .submit-form__actions {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    margin-top: 0.5rem;
+  }
+  .submit-form__note {
+    color: var(--text-500);
+    font-size: 0.8125rem;
+    margin: 0;
+  }
+
+  @media (max-width: 768px) {
+    .page-hero { padding: 7rem 0 3rem; }
+    .submit-form { padding: 2rem; }
+    .submit-form__row { grid-template-columns: 1fr; }
+  }
+</style>

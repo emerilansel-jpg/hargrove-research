@@ -50,55 +50,440 @@ if (post.data.reviewer) {
 <BaseLayout title={post.data.title} description={post.data.description}>
   <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
 
-  <article style="max-width:780px;margin:4rem auto;padding:0 1.5rem;">
-    {post.data.heroImage && (
-      <img src={post.data.heroImage} alt={post.data.title} style="width:100%;border-radius:var(--radius);margin-bottom:2.5rem;" />
-    )}
+  <!-- Article hero -->
+  <header class="article-hero">
+    <div class="container article-hero__inner">
+      <nav class="breadcrumb mono" aria-label="Breadcrumb">
+        <a href="/">Home</a>
+        <span>/</span>
+        <a href="/insights">Research</a>
+        <span>/</span>
+        <span aria-current="page">{post.data.outputFormat || 'Report'}</span>
+      </nav>
 
-    <div style="display:flex;gap:0.5rem;flex-wrap:wrap;align-items:center;margin-bottom:0.75rem;">
-      {post.data.outputFormat && <span style="background:var(--color-primary);color:#fff;font-size:0.65rem;padding:0.25rem 0.6rem;border-radius:4px;text-transform:uppercase;letter-spacing:0.03em;">{post.data.outputFormat}</span>}
-      {post.data.category && <span style="background:var(--color-accent);color:#fff;font-size:0.65rem;padding:0.25rem 0.6rem;border-radius:4px;text-transform:uppercase;letter-spacing:0.03em;">{post.data.category}</span>}
+      <div class="article-hero__tags">
+        {post.data.outputFormat && <span class="tag tag--accent">{post.data.outputFormat}</span>}
+        {post.data.category && <span class="tag tag--ink-light">{post.data.category}</span>}
+      </div>
+
+      <h1 class="article-hero__title text-balance">{post.data.title}</h1>
+      <p class="article-hero__lede text-pretty">{post.data.description}</p>
+
+      <div class="article-hero__byline">
+        <div class="byline-author">
+          <div class="byline-author__avatar" aria-hidden="true">
+            {post.data.author.split(' ').map(n => n[0]).slice(0, 2).join('')}
+          </div>
+          <div>
+            <div class="byline-author__name">{post.data.author}</div>
+            {post.data.reviewer && (
+              <div class="byline-author__role">Reviewed by {post.data.reviewer}</div>
+            )}
+          </div>
+        </div>
+        <div class="byline-meta mono">
+          <span>{publishDate}</span>
+          <span class="byline-meta__sep">·</span>
+          <span>{readingTime} min read</span>
+          {lastReviewed !== publishDate && (
+            <>
+              <span class="byline-meta__sep">·</span>
+              <span>Reviewed {lastReviewed}</span>
+            </>
+          )}
+        </div>
+      </div>
     </div>
+  </header>
 
-    <p style="color:var(--color-muted);font-size:0.9rem;">
-      {post.data.author}{post.data.reviewer ? ` · Reviewed by ${post.data.reviewer}` : ''}
-    </p>
-
-    <p style="color:var(--color-muted);font-size:0.85rem;margin-top:0.5rem;">
-      Published {publishDate} · Last reviewed {lastReviewed} · {readingTime} min read
-    </p>
-
-    {post.data.researchQuestion && (
-      <div style="background:var(--color-surface);border-left:4px solid var(--color-accent);padding:1rem 1.25rem;margin:1.5rem 0;border-radius:0 var(--radius) var(--radius) 0;">
-        <p style="font-weight:700;color:var(--color-primary);margin:0;text-transform:uppercase;font-size:0.75rem;letter-spacing:0.05em;">Research Question</p>
-        <p style="margin:0.35rem 0 0 0;font-size:1.05rem;">{post.data.researchQuestion}</p>
-      </div>
-    )}
-
-    <h1 style="margin-top:1rem;">{post.data.title}</h1>
-
-    <DisclosureBox text={post.data.disclosure} />
-
-    <div style="margin-top:2.5rem;line-height:1.9;" class="article-body">
-      <Content />
+  {post.data.heroImage && (
+    <div class="container article-heroimg">
+      <img src={post.data.heroImage} alt={post.data.title} />
     </div>
+  )}
 
-    {post.data.evidenceClasses && (
-      <div style="margin-top:3rem;">
-        <h3>Evidence Classes Used</h3>
-        <ul style="margin-top:0.5rem;padding-left:1.25rem;color:var(--color-muted);line-height:1.8;">
-          {post.data.evidenceClasses.map(ec => <li>{ec}</li>)}
-        </ul>
+  <!-- Article body -->
+  <article class="article-wrap">
+    <div class="container article-grid">
+      <aside class="article-toc" aria-label="Article metadata">
+        <div class="article-toc__sticky">
+          <p class="article-toc__heading mono">Contents</p>
+          <div id="toc-mount"></div>
+
+          {post.data.researchQuestion && (
+            <div class="research-question">
+              <p class="research-question__label mono">Research Question</p>
+              <p class="research-question__text">{post.data.researchQuestion}</p>
+            </div>
+          )}
+
+          <div class="article-toc__disclosure">
+            <DisclosureBox text={post.data.disclosure} />
+          </div>
+        </div>
+      </aside>
+
+      <div class="article-main">
+        <div class="article-body">
+          <Content />
+        </div>
+
+        {post.data.evidenceClasses && post.data.evidenceClasses.length > 0 && (
+          <section class="article-section">
+            <h3>Evidence Classes Used</h3>
+            <ul class="evidence-list">
+              {post.data.evidenceClasses.map(ec => <li>{ec}</li>)}
+            </ul>
+          </section>
+        )}
+
+        {post.data.limitations && (
+          <section class="article-section limitations-box">
+            <h3>Limitations</h3>
+            <p>{post.data.limitations}</p>
+          </section>
+        )}
+
+        <CorrectionCTA />
       </div>
-    )}
-
-    {post.data.limitations && (
-      <div style="margin-top:2rem;background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius);padding:1.25rem;">
-        <h3 style="margin-top:0;">Limitations</h3>
-        <p style="margin:0.5rem 0 0 0;color:var(--color-muted);line-height:1.7;">{post.data.limitations}</p>
-      </div>
-    )}
-
-    <CorrectionCTA />
+    </div>
   </article>
+
 </BaseLayout>
+
+<style>
+  /* ── Article Hero ── */
+  .article-hero {
+    padding: 9rem 0 4rem;
+    background: linear-gradient(180deg, var(--paper-warm) 0%, var(--paper) 100%);
+    border-bottom: 1px solid var(--border-hairline);
+  }
+  .article-hero__inner { max-width: 880px; }
+  .breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.75rem;
+    color: var(--text-500);
+    margin-bottom: 2rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .breadcrumb a { color: var(--text-500); transition: color 180ms var(--ease-out); }
+  .breadcrumb a:hover { color: var(--copper-500); }
+  .breadcrumb span[aria-current] { color: var(--copper-500); }
+
+  .article-hero__tags {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 1.5rem;
+  }
+  .tag {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    font-weight: 600;
+    padding: 5px 10px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+  }
+  .tag--accent { background: var(--copper-500); color: #fff; }
+  .tag--ink-light { background: var(--ink-900); color: #fff; }
+
+  .article-hero__title {
+    font-size: clamp(2.25rem, 5vw, 3.5rem);
+    font-weight: 500;
+    letter-spacing: -0.03em;
+    line-height: 1.05;
+    color: var(--ink-900);
+    margin-bottom: 1.25rem;
+  }
+  .article-hero__lede {
+    font-size: 1.25rem;
+    color: var(--text-700);
+    line-height: 1.65;
+    max-width: 720px;
+    margin-bottom: 2.5rem;
+    font-family: var(--font-serif);
+  }
+
+  .article-hero__byline {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border-soft);
+  }
+  .byline-author {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .byline-author__avatar {
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--copper-400), var(--signal-400));
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 0.9375rem;
+    letter-spacing: 0.02em;
+  }
+  .byline-author__name {
+    font-weight: 600;
+    color: var(--ink-900);
+    font-size: 0.9375rem;
+  }
+  .byline-author__role {
+    font-size: 0.8125rem;
+    color: var(--text-500);
+    margin-top: 2px;
+  }
+  .byline-meta {
+    font-size: 0.75rem;
+    color: var(--text-500);
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .byline-meta__sep { opacity: 0.5; }
+
+  .article-heroimg {
+    margin-top: -2rem;
+    margin-bottom: 3rem;
+  }
+  .article-heroimg img {
+    width: 100%;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+  }
+
+  /* ── Article Layout ── */
+  .article-wrap { padding: 4rem 0; }
+  .article-grid {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+  .article-toc { position: relative; }
+  .article-toc__sticky {
+    position: sticky;
+    top: 6rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  .article-toc__heading {
+    font-size: 0.6875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: var(--copper-500);
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+  .research-question {
+    background: var(--paper-warm);
+    border-left: 3px solid var(--copper-500);
+    padding: 1rem 1.25rem;
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  }
+  .research-question__label {
+    font-size: 0.625rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--copper-500);
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+  .research-question__text {
+    font-size: 0.9375rem;
+    line-height: 1.55;
+    color: var(--ink-900);
+    margin: 0;
+    font-family: var(--font-serif);
+  }
+
+  .article-main {
+    max-width: 720px;
+  }
+
+  /* ── Article Body (typography for markdown content) ── */
+  .article-body {
+    font-family: var(--font-serif);
+    font-size: 1.125rem;
+    line-height: 1.85;
+    color: var(--text-900);
+  }
+  .article-body :global(h2) {
+    font-family: var(--font-display);
+    font-size: 1.875rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: var(--ink-900);
+    margin-top: 3rem;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+  }
+  .article-body :global(h3) {
+    font-family: var(--font-display);
+    font-size: 1.375rem;
+    font-weight: 600;
+    letter-spacing: -0.015em;
+    color: var(--ink-900);
+    margin-top: 2.25rem;
+    margin-bottom: 0.75rem;
+    line-height: 1.3;
+  }
+  .article-body :global(p) { margin-bottom: 1.25rem; }
+  .article-body :global(ul),
+  .article-body :global(ol) {
+    margin: 0 0 1.25rem 1.5rem;
+  }
+  .article-body :global(li) { margin-bottom: 0.5rem; }
+  .article-body :global(li::marker) { color: var(--copper-500); }
+  .article-body :global(blockquote) {
+    border-left: 3px solid var(--copper-500);
+    padding: 0.5rem 0 0.5rem 1.5rem;
+    margin: 2rem 0;
+    font-style: italic;
+    color: var(--text-700);
+    font-size: 1.1875rem;
+  }
+  .article-body :global(code) {
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+    background: var(--paper-warm);
+    padding: 2px 6px;
+    border-radius: 4px;
+    color: var(--copper-500);
+  }
+  .article-body :global(pre) {
+    background: var(--ink-950);
+    color: var(--ink-100);
+    padding: 1.25rem 1.5rem;
+    border-radius: var(--radius);
+    overflow-x: auto;
+    margin: 1.5rem 0;
+    font-size: 0.875rem;
+    line-height: 1.6;
+  }
+  .article-body :global(pre code) {
+    background: transparent;
+    color: inherit;
+    padding: 0;
+  }
+  .article-body :global(a) {
+    color: var(--copper-500);
+    text-decoration: underline;
+    text-decoration-color: rgba(201, 123, 45, 0.3);
+    text-underline-offset: 3px;
+    transition: text-decoration-color 180ms var(--ease-out);
+  }
+  .article-body :global(a:hover) {
+    text-decoration-color: var(--copper-500);
+  }
+  .article-body :global(img) {
+    border-radius: var(--radius);
+    margin: 2rem 0;
+    box-shadow: var(--shadow-md);
+  }
+  .article-body :global(hr) {
+    border: none;
+    border-top: 1px solid var(--border-soft);
+    margin: 3rem 0;
+  }
+  .article-body :global(strong) { font-weight: 600; color: var(--ink-900); }
+
+  /* Pull-quote style for first paragraph */
+  .article-body :global(p:first-of-type) {
+    font-size: 1.3125rem;
+    line-height: 1.65;
+    color: var(--ink-900);
+  }
+
+  /* ── Sections within article ── */
+  .article-section {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border-soft);
+  }
+  .article-section h3 {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--ink-900);
+    margin-bottom: 1rem;
+    letter-spacing: -0.015em;
+  }
+  .evidence-list {
+    list-style: none;
+    padding: 0;
+  }
+  .evidence-list li {
+    padding: 0.75rem 0 0.75rem 1.5rem;
+    border-bottom: 1px solid var(--border-hairline);
+    color: var(--text-700);
+    position: relative;
+  }
+  .evidence-list li::before {
+    content: '◆';
+    position: absolute;
+    left: 0;
+    color: var(--copper-500);
+    font-size: 0.6rem;
+    top: 1.15rem;
+  }
+  .limitations-box {
+    background: var(--paper-warm);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    border-top: none;
+    border-left: 3px solid var(--warning);
+  }
+  .limitations-box h3 { margin-top: 0; }
+  .limitations-box p {
+    color: var(--text-700);
+    line-height: 1.7;
+    margin: 0;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 900px) {
+    .article-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .article-toc__sticky { position: static; }
+    .article-toc { order: 2; }
+    .article-main { order: 1; }
+    .article-hero { padding: 7rem 0 3rem; }
+    .article-hero__byline { flex-direction: column; align-items: flex-start; }
+  }
+</style>
+
+<script>
+// Build TOC from h2s in article
+(function() {
+  var mount = document.getElementById('toc-mount');
+  if (!mount) return;
+  var headings = document.querySelectorAll('.article-body h2');
+  if (!headings.length) {
+    mount.innerHTML = '<p style="font-size:0.8125rem;color:var(--text-400);font-style:italic;">No sections</p>';
+    return;
+  }
+  var html = '<ul style="list-style:none;padding:0;font-size:0.875rem;line-height:1.9;">';
+  headings.forEach(function(h, i) {
+    if (!h.id) h.id = 'section-' + i;
+    html += '<li><a href="#' + h.id + '" style="color:var(--text-500);text-decoration:none;transition:color 180ms;" onmouseover="this.style.color=\'var(--copper-500)\'" onmouseout="this.style.color=\'var(--text-500)\'">' + h.textContent + '</a></li>';
+  });
+  html += '</ul>';
+  mount.innerHTML = html;
+})();
+</script>

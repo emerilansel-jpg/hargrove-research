@@ -2,11 +2,175 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
-<BaseLayout title="Reviewers" description="Reviewers — Hargrove Research Group">
-  <section class="section">
-    <div class="container" style="max-width:800px;">
-      <h1 style="margin-bottom:1.5rem;">Reviewers</h1>
-      <p>Our research undergoes independent review by named reviewers who evaluate methodology, evidence quality, and analytical rigor.</p><p>All reviewers are identified in the reports they review, maintaining full transparency and accountability.</p>
+<BaseLayout title="Reviewers" description="Reviewers — Hargrove Research Group. Our research undergoes independent review by named reviewers who evaluate methodology, evidence quality, and analytical rigor.">
+
+  <section class="page-hero">
+    <div class="container">
+      <span class="kicker reveal">Peer Review</span>
+      <h1 class="page-hero__title reveal" data-delay="1">
+        Named <em>reviewers.</em>
+        <br/>Public accountability.
+      </h1>
+      <p class="page-hero__sub reveal" data-delay="2">
+        Our research undergoes independent review by named reviewers who evaluate
+        methodology, evidence quality, and analytical rigor. All reviewers are
+        identified in the reports they review, maintaining full transparency and
+        accountability.
+      </p>
     </div>
   </section>
+
+  <section class="section">
+    <div class="container" style="max-width:880px;">
+      <div class="reviewer-pillars">
+        <div class="reviewer-pillar reveal">
+          <span class="reviewer-pillar__icon" aria-hidden="true">◈</span>
+          <h3>Methodology</h3>
+          <p>Reviewers evaluate whether our research methods are sound, reproducible, and correctly applied.</p>
+        </div>
+        <div class="reviewer-pillar reveal" data-delay="1">
+          <span class="reviewer-pillar__icon" aria-hidden="true">◈</span>
+          <h3>Evidence quality</h3>
+          <p>Reviewers assess the strength, sourcing, and classification of evidence supporting our claims.</p>
+        </div>
+        <div class="reviewer-pillar reveal" data-delay="2">
+          <span class="reviewer-pillar__icon" aria-hidden="true">◈</span>
+          <h3>Analytical rigor</h3>
+          <p>Reviewers verify that conclusions follow from evidence and that limitations are properly stated.</p>
+        </div>
+      </div>
+
+      <div class="reviewer-note reveal" data-delay="1">
+        <span class="section__label">Transparency</span>
+        <p class="text-balance">
+          All reviewers are identified in the reports they review, maintaining full
+          transparency and accountability.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--soft">
+    <div class="container">
+      <div class="section__header reveal">
+        <div>
+          <span class="section__label">Join the Panel</span>
+          <h2 class="text-balance">Become a reviewer</h2>
+        </div>
+      </div>
+      <div class="reviewer-cta reveal" data-delay="1">
+        <p>
+          We are always looking for qualified reviewers with expertise in AI, enterprise
+          software, data infrastructure, and regulatory policy. Reviewers are named on
+          every report they evaluate.
+        </p>
+        <a href="/contact" class="btn btn-outline">Apply to Review</a>
+      </div>
+    </div>
+  </section>
+
 </BaseLayout>
+
+<style>
+  .page-hero {
+    padding: 9rem 0 4rem;
+    background: linear-gradient(180deg, var(--paper-warm) 0%, var(--paper) 100%);
+    border-bottom: 1px solid var(--border-hairline);
+  }
+  .page-hero__title {
+    font-size: clamp(2.5rem, 5.5vw, 4rem);
+    font-weight: 500;
+    letter-spacing: -0.03em;
+    color: var(--ink-900);
+    margin: 1rem 0 1.5rem;
+    line-height: 1.05;
+  }
+  .page-hero__title em {
+    font-style: italic;
+    font-weight: 400;
+    color: var(--copper-500);
+  }
+  .page-hero__sub {
+    font-size: 1.125rem;
+    color: var(--text-700);
+    line-height: 1.7;
+    max-width: 640px;
+  }
+
+  .reviewer-pillars {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+  }
+  .reviewer-pillar {
+    background: #fff;
+    border: 1px solid var(--border-soft);
+    border-radius: var(--radius);
+    padding: 2rem;
+    transition: transform 320ms var(--ease-out), box-shadow 320ms var(--ease-out), border-color 320ms var(--ease-out);
+  }
+  .reviewer-pillar:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--copper-400);
+  }
+  .reviewer-pillar__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px; height: 48px;
+    border-radius: 50%;
+    background: var(--copper-100);
+    color: var(--copper-500);
+    font-size: 1.25rem;
+    margin-bottom: 1.25rem;
+  }
+  .reviewer-pillar h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--ink-900);
+    margin-bottom: 0.625rem;
+  }
+  .reviewer-pillar p {
+    color: var(--text-500);
+    font-size: 0.9375rem;
+    line-height: 1.65;
+    margin: 0;
+  }
+
+  .reviewer-note {
+    padding: 2.5rem;
+    background: var(--paper-warm);
+    border-radius: var(--radius);
+    border: 1px solid var(--border-soft);
+  }
+  .reviewer-note p {
+    margin-top: 1rem;
+    font-size: 1.25rem;
+    color: var(--ink-900);
+    font-weight: 500;
+    line-height: 1.5;
+    letter-spacing: -0.01em;
+  }
+
+  .reviewer-cta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+  .reviewer-cta p {
+    color: var(--text-500);
+    font-size: 1.0625rem;
+    line-height: 1.7;
+    max-width: 640px;
+    margin: 0;
+  }
+
+  @media (max-width: 768px) {
+    .page-hero { padding: 7rem 0 3rem; }
+    .reviewer-cta { flex-direction: column; align-items: flex-start; }
+  }
+</style>

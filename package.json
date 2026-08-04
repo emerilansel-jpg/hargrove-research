@@ -1,6 +1,6 @@
 {
   "name": "hargrove-research",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "type": "module",
   "engines": {
     "node": ">=22.12.0"
@@ -8,12 +8,14 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
-    "preview": "astro preview"
+    "preview": "astro preview",
+    "cf:deploy": "wrangler pages deploy ./dist --project-name=hargroveresearch"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.2",
     "astro": "latest",
     "@astrojs/mdx": "^7.0.2",
-    "@astrojs/rss": "^4.0.19"
+    "@astrojs/rss": "^4.0.19",
+    "wrangler": "^3.0.0"
   }
 }

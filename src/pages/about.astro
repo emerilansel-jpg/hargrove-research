@@ -2,11 +2,262 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
-<BaseLayout title="About" description="About — Hargrove Research Group">
-  <section class="section">
-    <div class="container" style="max-width:800px;">
-      <h1 style="margin-bottom:1.5rem;">About</h1>
-      <p>Hargrove Research Group is an independent research publisher committed to evidence-based market analysis. We publish our methodology, disclose commercial relationships, and maintain an open correction pathway.</p><p>Our team of analysts and researchers produces category benchmarks, market reports, and methodology primers across key industry verticals.</p>
+<BaseLayout title="About" description="Hargrove Research Group — independent, evidence-based research for the AI era.">
+
+  <!-- Page hero -->
+  <section class="page-hero">
+    <div class="container">
+      <span class="kicker reveal">About Hargrove</span>
+      <h1 class="page-hero__title reveal" data-delay="1">
+        Independent research.<br/>
+        <em>Public evidence.</em> Named authors.
+      </h1>
+      <p class="page-hero__sub reveal" data-delay="2">
+        Hargrove Research Group is an independent research publisher committed to
+        evidence-based market analysis. We publish our methodology, disclose commercial
+        relationships, and maintain an open correction pathway.
+      </p>
     </div>
   </section>
+
+  <!-- Mission statement -->
+  <section class="section">
+    <div class="container">
+      <div class="mission-grid">
+        <div class="mission-statement reveal">
+          <span class="section__label">Our Mission</span>
+          <h2 class="text-balance" style="margin-top:0.75rem;">
+            To give technology leaders research they can defend in front of a board,
+            a regulator, or a courtroom.
+          </h2>
+        </div>
+        <div class="mission-points">
+          <div class="mission-point reveal" data-delay="1">
+            <span class="mission-point__num mono">01</span>
+            <div>
+              <h3>Independent</h3>
+              <p>No vendor funding for research. No pay-to-rank. No sponsored scores.</p>
+            </div>
+          </div>
+          <div class="mission-point reveal" data-delay="2">
+            <span class="mission-point__num mono">02</span>
+            <div>
+              <h3>Transparent</h3>
+              <p>Published methodology, disclosed conflicts, named reviewers on every report.</p>
+            </div>
+          </div>
+          <div class="mission-point reveal" data-delay="3">
+            <span class="mission-point__num mono">03</span>
+            <div>
+              <h3>Accountable</h3>
+              <p>Open correction pathway. Public errata. Tracked forecast accuracy.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Facts strip -->
+  <section class="section section--soft section--tight">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-card reveal">
+          <span class="stat-card__num"><span data-count="2019">0</span></span>
+          <span class="stat-card__label">Founded</span>
+          <span class="stat-card__meta">New York, NY</span>
+        </div>
+        <div class="stat-card reveal" data-delay="1">
+          <span class="stat-card__num"><span data-count="14">0</span></span>
+          <span class="stat-card__label">Full-time Analysts</span>
+          <span class="stat-card__meta">Plus named reviewers</span>
+        </div>
+        <div class="stat-card reveal" data-delay="2">
+          <span class="stat-card__num"><span data-count="240">0</span><span class="suffix">+</span></span>
+          <span class="stat-card__label">Press Citations</span>
+          <span class="stat-card__meta">FT, WSJ, Bloomberg, Reuters</span>
+        </div>
+        <div class="stat-card reveal" data-delay="3">
+          <span class="stat-card__num"><span data-count="0">0</span></span>
+          <span class="stat-card__label">Vendor Dollars</span>
+          <span class="stat-card__meta">Accepted for research</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- What we cover -->
+  <section class="section">
+    <div class="container">
+      <div class="section__header reveal">
+        <div>
+          <span class="section__label">Coverage</span>
+          <h2 class="text-balance">What we research</h2>
+        </div>
+      </div>
+      <div class="coverage-grid">
+        <a href="/insights" class="coverage-card reveal" data-delay="1">
+          <span class="coverage-card__num mono">01</span>
+          <h3>AI &amp; Machine Learning</h3>
+          <p>Foundation models, agent infrastructure, fine-tuning economics, governance frameworks.</p>
+          <span class="coverage-card__arrow">→</span>
+        </a>
+        <a href="/insights" class="coverage-card reveal" data-delay="2">
+          <span class="coverage-card__num mono">02</span>
+          <h3>Enterprise Software</h3>
+          <p>Category benchmarks, deployment analysis, vendor assessments, total-cost-of-ownership.</p>
+          <span class="coverage-card__arrow">→</span>
+        </a>
+        <a href="/insights" class="coverage-card reveal" data-delay="3">
+          <span class="coverage-card__num mono">03</span>
+          <h3>Data &amp; Infrastructure</h3>
+          <p>Cloud economics, data platforms, observability, security, and compliance infrastructure.</p>
+          <span class="coverage-card__arrow">→</span>
+        </a>
+        <a href="/insights" class="coverage-card reveal" data-delay="4">
+          <span class="coverage-card__num mono">04</span>
+          <h3>Regulation &amp; Policy</h3>
+          <p>AI Act, GDPR, SEC disclosure rules, and the compliance landscape for enterprise AI.</p>
+          <span class="coverage-card__arrow">→</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
 </BaseLayout>
+
+<style>
+  .page-hero {
+    padding: 9rem 0 4rem;
+    background: linear-gradient(180deg, var(--paper-warm) 0%, var(--paper) 100%);
+    border-bottom: 1px solid var(--border-hairline);
+  }
+  .page-hero__title {
+    font-size: clamp(2.5rem, 5.5vw, 4rem);
+    font-weight: 500;
+    letter-spacing: -0.03em;
+    color: var(--ink-900);
+    margin: 1rem 0 1.5rem;
+    line-height: 1.05;
+  }
+  .page-hero__title em {
+    font-style: italic;
+    font-weight: 400;
+    color: var(--copper-500);
+  }
+  .page-hero__sub {
+    font-size: 1.125rem;
+    color: var(--text-700);
+    line-height: 1.7;
+    max-width: 680px;
+  }
+
+  .mission-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+  .mission-statement h2 {
+    font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    color: var(--ink-900);
+    line-height: 1.2;
+  }
+  .mission-points {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  .mission-point {
+    display: flex;
+    gap: 1.5rem;
+    padding: 1.5rem;
+    background: var(--paper-warm);
+    border-radius: var(--radius);
+    border: 1px solid var(--border-soft);
+    transition: transform 320ms var(--ease-out), border-color 320ms var(--ease-out);
+  }
+  .mission-point:hover {
+    transform: translateX(4px);
+    border-color: var(--copper-400);
+  }
+  .mission-point__num {
+    font-size: 0.75rem;
+    color: var(--copper-500);
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    padding-top: 4px;
+    flex-shrink: 0;
+  }
+  .mission-point h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.375rem;
+    color: var(--ink-900);
+  }
+  .mission-point p {
+    color: var(--text-500);
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .coverage-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+  }
+  .coverage-card {
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+    background: #fff;
+    border: 1px solid var(--border-soft);
+    border-radius: var(--radius);
+    text-decoration: none;
+    color: inherit;
+    transition: transform 320ms var(--ease-out), box-shadow 320ms var(--ease-out), border-color 320ms var(--ease-out);
+    position: relative;
+  }
+  .coverage-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--copper-400);
+  }
+  .coverage-card__num {
+    font-size: 0.75rem;
+    color: var(--copper-500);
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    margin-bottom: 1rem;
+  }
+  .coverage-card h3 {
+    font-size: 1.375rem;
+    font-weight: 600;
+    letter-spacing: -0.015em;
+    color: var(--ink-900);
+    margin-bottom: 0.75rem;
+  }
+  .coverage-card p {
+    color: var(--text-500);
+    font-size: 0.9375rem;
+    line-height: 1.65;
+    margin-bottom: 1.5rem;
+    flex: 1;
+  }
+  .coverage-card__arrow {
+    font-size: 1.25rem;
+    color: var(--copper-500);
+    transition: transform 240ms var(--ease-out);
+  }
+  .coverage-card:hover .coverage-card__arrow {
+    transform: translateX(6px);
+  }
+
+  @media (max-width: 900px) {
+    .mission-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .page-hero { padding: 7rem 0 3rem; }
+  }
+</style>

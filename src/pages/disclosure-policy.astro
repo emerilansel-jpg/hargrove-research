@@ -2,11 +2,171 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
-<BaseLayout title="Disclosure Policy" description="Disclosure Policy — Hargrove Research Group">
-  <section class="section">
-    <div class="container" style="max-width:800px;">
-      <h1 style="margin-bottom:1.5rem;">Disclosure Policy</h1>
-      <p>Full transparency is fundamental to our research practice. This policy outlines how we disclose commercial relationships, funding sources, and potential conflicts of interest.</p><h2>What We Disclose</h2><ul><li>Any commercial relationship with evaluated entities</li><li>Funding sources for research projects</li><li>Analyst financial positions in covered companies</li><li>Access or data provided by evaluated entities</li></ul>
+<BaseLayout title="Disclosure Policy" description="Disclosure Policy — Hargrove Research Group. Full transparency on commercial relationships, funding sources, and potential conflicts of interest.">
+
+  <section class="page-hero">
+    <div class="container">
+      <span class="kicker reveal">Transparency</span>
+      <h1 class="page-hero__title reveal" data-delay="1">
+        Disclosure <em>policy</em>
+      </h1>
+      <p class="page-hero__sub reveal" data-delay="2">
+        Full transparency is fundamental to our research practice. This policy outlines
+        how we disclose commercial relationships, funding sources, and potential
+        conflicts of interest.
+      </p>
     </div>
   </section>
+
+  <section class="section">
+    <div class="container" style="max-width:880px;">
+      <div class="article-body">
+        <div class="disclosure-list reveal">
+          <span class="section__label">What We Disclose</span>
+          <ul class="disclosure-items">
+            <li>
+              <span class="disclosure-items__num mono">01</span>
+              <div>
+                <h3>Commercial relationships</h3>
+                <p>Any commercial relationship with evaluated entities</p>
+              </div>
+            </li>
+            <li>
+              <span class="disclosure-items__num mono">02</span>
+              <div>
+                <h3>Funding sources</h3>
+                <p>Funding sources for research projects</p>
+              </div>
+            </li>
+            <li>
+              <span class="disclosure-items__num mono">03</span>
+              <div>
+                <h3>Analyst positions</h3>
+                <p>Analyst financial positions in covered companies</p>
+              </div>
+            </li>
+            <li>
+              <span class="disclosure-items__num mono">04</span>
+              <div>
+                <h3>Data &amp; access</h3>
+                <p>Access or data provided by evaluated entities</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="page-cta reveal" data-delay="1">
+        <div>
+          <h2>Found a gap in our disclosure?</h2>
+          <p>We welcome evidence submissions and correction requests.</p>
+        </div>
+        <a href="/submit-evidence" class="btn">Submit Evidence</a>
+      </div>
+    </div>
+  </section>
+
 </BaseLayout>
+
+<style>
+  .page-hero {
+    padding: 9rem 0 4rem;
+    background: linear-gradient(180deg, var(--paper-warm) 0%, var(--paper) 100%);
+    border-bottom: 1px solid var(--border-hairline);
+  }
+  .page-hero__title {
+    font-size: clamp(2.5rem, 5.5vw, 4rem);
+    font-weight: 500;
+    letter-spacing: -0.03em;
+    color: var(--ink-900);
+    margin: 1rem 0 1.5rem;
+    line-height: 1.05;
+  }
+  .page-hero__title em {
+    font-style: italic;
+    font-weight: 400;
+    color: var(--copper-500);
+  }
+  .page-hero__sub {
+    font-size: 1.125rem;
+    color: var(--text-700);
+    line-height: 1.7;
+    max-width: 640px;
+  }
+
+  .disclosure-list {
+    background: #fff;
+    border: 1px solid var(--border-soft);
+    border-radius: var(--radius-lg);
+    padding: 3rem;
+  }
+  .disclosure-items {
+    list-style: none;
+    padding: 0;
+    margin: 1.5rem 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  .disclosure-items li {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.25rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border-hairline);
+  }
+  .disclosure-items li:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+  .disclosure-items__num {
+    font-size: 0.75rem;
+    color: var(--copper-500);
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    flex-shrink: 0;
+    padding-top: 4px;
+  }
+  .disclosure-items h3 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--ink-900);
+    margin-bottom: 0.375rem;
+  }
+  .disclosure-items p {
+    color: var(--text-500);
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .page-cta {
+    margin-top: 3rem;
+    padding: 2.5rem;
+    background: var(--ink-950);
+    color: #fff;
+    border-radius: var(--radius-lg);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+  .page-cta h2 {
+    color: #fff;
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+  .page-cta p {
+    color: rgba(199, 208, 232, 0.7);
+    margin: 0;
+    font-size: 0.9375rem;
+  }
+
+  @media (max-width: 768px) {
+    .page-hero { padding: 7rem 0 3rem; }
+    .disclosure-list { padding: 2rem; }
+    .page-cta { flex-direction: column; align-items: flex-start; }
+  }
+</style>

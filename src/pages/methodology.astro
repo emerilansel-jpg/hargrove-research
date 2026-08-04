@@ -2,11 +2,274 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
-<BaseLayout title="Methodology" description="Methodology — Hargrove Research Group">
-  <section class="section">
-    <div class="container" style="max-width:800px;">
-      <h1 style="margin-bottom:1.5rem;">Methodology</h1>
-      <p>Our research methodology is designed to ensure transparency, reproducibility, and accountability. Every report discloses its criteria, evidence classes, and limitations.</p><h2>Research Process</h2><ol><li><strong>Define Criteria</strong> — Evaluation criteria are fixed before any vendor or entity is named</li><li><strong>Collect Evidence</strong> — Primary and secondary sources, structured against published criteria</li><li><strong>Independent Review</strong> — Named reviewers evaluate methodology and evidence quality</li><li><strong>Publish with Disclosure</strong> — Full methodology, limitations, and evidence classes disclosed</li></ol>
+<BaseLayout title="Methodology" description="How Hargrove Research Group produces independent, evidence-based research — process, criteria, evidence classes, and disclosure.">
+
+  <!-- Page hero -->
+  <section class="page-hero">
+    <div class="container">
+      <span class="kicker reveal">Our Process</span>
+      <h1 class="page-hero__title reveal" data-delay="1">
+        Rigorous by design.<br/>
+        <em>Transparent</em> by default.
+      </h1>
+      <p class="page-hero__sub reveal" data-delay="2">
+        Every report discloses its criteria, evidence classes, and limitations.
+        Every claim is sourced. Every conflict is named. Every correction is open.
+      </p>
     </div>
   </section>
+
+  <!-- Research process -->
+  <section class="section">
+    <div class="container">
+      <div class="section__header reveal">
+        <div>
+          <span class="section__label">How We Work</span>
+          <h2 class="text-balance">Four steps, no shortcuts</h2>
+        </div>
+      </div>
+
+      <div class="process-grid">
+        <div class="process-step reveal" data-delay="1">
+          <div class="process-step__num mono">01</div>
+          <h3>Define criteria</h3>
+          <p>Evaluation criteria are fixed and published <em>before</em> any vendor or entity is named. No retrofitting. No cherry-picking.</p>
+        </div>
+        <div class="process-step reveal" data-delay="2">
+          <div class="process-step__num mono">02</div>
+          <h3>Collect evidence</h3>
+          <p>Primary and secondary sources, structured against published criteria. Interviews, benchmarks, public filings, on-the-record data.</p>
+        </div>
+        <div class="process-step reveal" data-delay="3">
+          <div class="process-step__num mono">03</div>
+          <h3>Independent review</h3>
+          <p>Named reviewers evaluate methodology and evidence quality. Their names and affiliations appear on every report.</p>
+        </div>
+        <div class="process-step reveal" data-delay="4">
+          <div class="process-step__num mono">04</div>
+          <h3>Publish with disclosure</h3>
+          <p>Full methodology, limitations, evidence classes, and conflict disclosures ship with every report. Corrections are public.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Evidence classes -->
+  <section class="section section--soft">
+    <div class="container">
+      <div class="section__header reveal">
+        <div>
+          <span class="section__label">Evidence Hierarchy</span>
+          <h2 class="text-balance">What counts as evidence</h2>
+        </div>
+      </div>
+
+      <div class="evidence-grid">
+        <div class="evidence-card reveal" data-delay="1">
+          <span class="evidence-card__class mono">Class A</span>
+          <h3>Primary empirical</h3>
+          <p>Benchmarks we run, datasets we curate, instruments we build. Reproducible by third parties.</p>
+        </div>
+        <div class="evidence-card reveal" data-delay="2">
+          <span class="evidence-card__class mono">Class B</span>
+          <h3>On-the-record interviews</h3>
+          <p>Named sources, recorded, with attribution. Conflicts and relationships disclosed.</p>
+        </div>
+        <div class="evidence-card reveal" data-delay="3">
+          <span class="evidence-card__class mono">Class C</span>
+          <h3>Public filings &amp; documents</h3>
+          <p>SEC filings, regulatory submissions, official docs. Verifiable against the source.</p>
+        </div>
+        <div class="evidence-card reveal" data-delay="4">
+          <span class="evidence-card__class mono">Class D</span>
+          <h3>Vendor-provided data</h3>
+          <p>Used only when corroborated. Always labeled. Never the sole basis for a conclusion.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Commitments -->
+  <section class="section section--dark">
+    <div class="container">
+      <div class="section__header reveal">
+        <div>
+          <span class="section__label">Editorial Commitments</span>
+          <h2 class="text-balance" style="color:#fff;">What we will not do</h2>
+        </div>
+      </div>
+      <div class="commitments-grid">
+        <div class="commitment reveal" data-delay="1">
+          <span class="commitment__icon" aria-hidden="true">✕</span>
+          <p><strong>No pay-to-rank.</strong> Vendors cannot pay for placement, scores, or coverage. Ever.</p>
+        </div>
+        <div class="commitment reveal" data-delay="2">
+          <span class="commitment__icon" aria-hidden="true">✕</span>
+          <p><strong>No anonymous sources</strong> as sole basis for material claims. On-the-record or it doesn't ship.</p>
+        </div>
+        <div class="commitment reveal" data-delay="3">
+          <span class="commitment__icon" aria-hidden="true">✕</span>
+          <p><strong>No sponsored research.</strong> We do not accept vendor funding for reports or benchmarks.</p>
+        </div>
+        <div class="commitment reveal" data-delay="4">
+          <span class="commitment__icon" aria-hidden="true">✕</span>
+          <p><strong>No hidden limitations.</strong> Known gaps, caveats, and proof boundaries are stated up front.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
 </BaseLayout>
+
+<style>
+  .page-hero {
+    padding: 9rem 0 4rem;
+    background: linear-gradient(180deg, var(--paper-warm) 0%, var(--paper) 100%);
+    border-bottom: 1px solid var(--border-hairline);
+  }
+  .page-hero__title {
+    font-size: clamp(2.5rem, 5.5vw, 4rem);
+    font-weight: 500;
+    letter-spacing: -0.03em;
+    color: var(--ink-900);
+    margin: 1rem 0 1.5rem;
+    line-height: 1.05;
+  }
+  .page-hero__title em {
+    font-style: italic;
+    font-weight: 400;
+    color: var(--copper-500);
+  }
+  .page-hero__sub {
+    font-size: 1.125rem;
+    color: var(--text-700);
+    line-height: 1.7;
+    max-width: 640px;
+  }
+
+  .process-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 2.5rem;
+  }
+  .process-step {
+    padding: 2rem;
+    background: #fff;
+    border: 1px solid var(--border-soft);
+    border-radius: var(--radius);
+    transition: transform 320ms var(--ease-out), box-shadow 320ms var(--ease-out), border-color 320ms var(--ease-out);
+  }
+  .process-step:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--copper-400);
+  }
+  .process-step__num {
+    font-size: 0.75rem;
+    color: var(--copper-500);
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    margin-bottom: 1rem;
+    display: block;
+  }
+  .process-step h3 {
+    font-size: 1.375rem;
+    font-weight: 600;
+    letter-spacing: -0.015em;
+    margin-bottom: 0.75rem;
+    color: var(--ink-900);
+  }
+  .process-step p {
+    color: var(--text-500);
+    font-size: 0.9375rem;
+    line-height: 1.65;
+    margin: 0;
+  }
+  .process-step em {
+    font-style: italic;
+    color: var(--copper-500);
+  }
+
+  .evidence-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem;
+  }
+  .evidence-card {
+    background: #fff;
+    border: 1px solid var(--border-soft);
+    border-radius: var(--radius);
+    padding: 1.75rem;
+    transition: transform 320ms var(--ease-out), box-shadow 320ms var(--ease-out);
+  }
+  .evidence-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-sm);
+  }
+  .evidence-card__class {
+    display: inline-block;
+    font-size: 0.625rem;
+    font-weight: 600;
+    color: var(--copper-500);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    background: var(--copper-100);
+    border-radius: 4px;
+    margin-bottom: 1rem;
+  }
+  .evidence-card h3 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--ink-900);
+  }
+  .evidence-card p {
+    color: var(--text-500);
+    font-size: 0.875rem;
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .commitments-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+  }
+  .commitment {
+    display: flex;
+    gap: 1rem;
+    padding: 1.5rem;
+    background: rgba(199, 208, 232, 0.04);
+    border: 1px solid rgba(199, 208, 232, 0.12);
+    border-radius: var(--radius);
+    transition: border-color 320ms var(--ease-out), background 320ms var(--ease-out);
+  }
+  .commitment:hover {
+    border-color: rgba(240, 178, 107, 0.3);
+    background: rgba(240, 178, 107, 0.04);
+  }
+  .commitment__icon {
+    flex-shrink: 0;
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: var(--copper-500);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.875rem;
+    font-weight: 700;
+  }
+  .commitment p {
+    margin: 0;
+    color: rgba(199, 208, 232, 0.85);
+    font-size: 0.9375rem;
+    line-height: 1.6;
+  }
+  .commitment strong { color: #fff; font-weight: 600; }
+
+  @media (max-width: 768px) {
+    .page-hero { padding: 7rem 0 3rem; }
+  }
+</style>

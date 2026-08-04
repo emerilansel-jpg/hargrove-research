@@ -42,14 +42,24 @@ const orgSchema = {
   <meta http-equiv="X-Frame-Options" content="DENY" />
   <meta http-equiv="X-Content-Type-Options" content="nosniff" />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://unpkg.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://research-api.n311311.workers.dev; frame-ancestors 'none';" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://unpkg.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://research-api.n311311.workers.dev; frame-ancestors 'none';" />
   <title>{title} | Hargrove Research Group</title>
   <meta name="description" content={description} />
   <link rel="canonical" href={canonicalURL} />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Source+Serif+4:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Inter:wght@400;500;600;700&family=Source+Serif+4:ital,wght@0,400..700;1,400..700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content={`${title} | Hargrove Research Group`} />
+  <meta property="og:description" content={description} />
+  <meta property="og:image" content={`${siteUrl}/og-image.svg`} />
+  <meta property="og:url" content={canonicalURL.toString()} />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={`${title} | Hargrove Research Group`} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={`${siteUrl}/og-image.svg`} />
+  <meta name="theme-color" content="#0A1128" />
   <script type="application/ld+json" set:html={JSON.stringify(orgSchema)} />
   <script>
   (function(){
@@ -66,54 +76,148 @@ const orgSchema = {
   <main>
     <slot />
   </main>
-  <footer style="background:var(--color-primary);color:#fff;margin-top:5rem;padding:4rem 0 2rem;">
+
+  <footer class="site-footer">
     <div class="container">
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:2.5rem;margin-bottom:2.5rem;">
+      <div class="site-footer__grid">
         <div>
-          <p style="font-family:var(--font-heading);font-size:1.3rem;font-weight:700;margin-bottom:0.75rem;">Hargrove Research Group</p>
-          <p style="opacity:0.75;line-height:1.7;">
+          <a href="/" class="site-footer__brand">Hargrove Research Group</a>
+          <p style="opacity:0.7;line-height:1.75;max-width:320px;font-size:0.9375rem;margin-bottom:1.5rem;">
+            Independent, evidence-based research for the AI era. Benchmarked. Reviewed. Disclosed.
+          </p>
+          <p style="opacity:0.55;line-height:1.7;font-size:0.875rem;font-family:var(--font-mono);letter-spacing:0.02em;">
             110 Wall Street, 11th Floor<br/>
             New York, NY 10005<br/>
             United States
           </p>
         </div>
         <div>
-          <p style="font-weight:700;margin-bottom:0.75rem;">Contact</p>
-          <ul style="list-style:none;opacity:0.75;line-height:1.9;">
-            <li><a href="mailto:research@hargroveresearch.com" style="color:#fff;">research@hargroveresearch.com</a></li>
-            <li><a href="mailto:editorial@hargroveresearch.com" style="color:#fff;">editorial@hargroveresearch.com</a></li>
-            <li><a href="mailto:corrections@hargroveresearch.com" style="color:#fff;">corrections@hargroveresearch.com</a></li>
-            <li>+1-212-555-0234</li>
+          <p class="site-footer__heading">Contact</p>
+          <ul>
+            <li><a href="mailto:research@hargroveresearch.com">research@</a></li>
+            <li><a href="mailto:editorial@hargroveresearch.com">editorial@</a></li>
+            <li><a href="mailto:corrections@hargroveresearch.com">corrections@</a></li>
+            <li style="font-family:var(--font-mono);">+1-212-555-0234</li>
           </ul>
         </div>
         <div>
-          <p style="font-weight:700;margin-bottom:0.75rem;">Authority</p>
-          <ul style="list-style:none;opacity:0.75;line-height:1.9;">
-            <li><a href="/methodology" style="color:#fff;">Methodology</a></li>
-            <li><a href="/editorial-policy" style="color:#fff;">Editorial Policy</a></li>
-            <li><a href="/disclosure-policy" style="color:#fff;">Disclosure Policy</a></li>
-            <li><a href="/reviewers" style="color:#fff;">Reviewers</a></li>
-            <li><a href="/submit-evidence" style="color:#fff;">Submit Evidence</a></li>
-            <li><a href="/llm-information" style="color:#fff;">LLM Information</a></li>
+          <p class="site-footer__heading">Authority</p>
+          <ul>
+            <li><a href="/methodology">Methodology</a></li>
+            <li><a href="/editorial-policy">Editorial Policy</a></li>
+            <li><a href="/disclosure-policy">Disclosure Policy</a></li>
+            <li><a href="/reviewers">Reviewers</a></li>
+            <li><a href="/submit-evidence">Submit Evidence</a></li>
+            <li><a href="/llm-information">LLM Information</a></li>
           </ul>
         </div>
         <div>
-          <p style="font-weight:700;margin-bottom:0.75rem;">Trust Signals</p>
-          <ul style="list-style:none;opacity:0.75;line-height:1.9;">
+          <p class="site-footer__heading">Trust Signals</p>
+          <ul>
             <li>No pay-to-rank</li>
             <li>Published methodology</li>
             <li>Named reviewers</li>
-            <li>Open correction pathway</li>
+            <li>Open corrections pathway</li>
             <li>Proof gaps disclosed</li>
             <li>Limitations documented</li>
           </ul>
         </div>
       </div>
-      <div style="border-top:1px solid rgba(255,255,255,0.15);padding-top:1.5rem;display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem;opacity:0.7;font-size:0.9rem;">
-        <p>&copy; 2026 Hargrove Research Group. All rights reserved.</p>
-        <p><a href="/category-definitions" style="color:#fff;">Categories</a> &middot; <a href="/press-citations" style="color:#fff;">Press &amp; Citations</a> &middot; <a href="/authority-roadmap" style="color:#fff;">Authority Roadmap</a></p>
+      <div class="site-footer__bottom">
+        <p>&copy; 2026 Hargrove Research Group &middot; All rights reserved</p>
+        <p>
+          <a href="/category-definitions">Categories</a> &middot;
+          <a href="/press-citations">Press &amp; Citations</a> &middot;
+          <a href="/authority-roadmap">Roadmap</a> &middot;
+          <a href="/contact">Contact</a>
+        </p>
       </div>
     </div>
   </footer>
+
+  <!-- Scroll-reveal + count-up + parallax orchestration -->
+  <script>
+  (function() {
+    // 1. Scroll reveal
+    var revealEls = document.querySelectorAll('.reveal');
+    function revealVisible() {
+      revealEls.forEach(function(el) {
+        var rect = el.getBoundingClientRect();
+        if (rect.top < window.innerHeight * 0.92 && rect.bottom > 0) {
+          el.classList.add('is-visible');
+        }
+      });
+    }
+    if ('IntersectionObserver' in window && revealEls.length) {
+      var io = new IntersectionObserver(function(entries) {
+        entries.forEach(function(e) {
+          if (e.isIntersecting) {
+            e.target.classList.add('is-visible');
+            io.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.05, rootMargin: '0px 0px -4% 0px' });
+      revealEls.forEach(function(el) { io.observe(el); });
+      if (document.readyState === 'complete') {
+        revealVisible();
+      } else {
+        window.addEventListener('load', revealVisible);
+        setTimeout(revealVisible, 100);
+      }
+    } else {
+      revealEls.forEach(function(el) { el.classList.add('is-visible'); });
+    }
+
+    // 2. Count-up animation for [data-count]
+    function animateCount(el) {
+      var target = parseFloat(el.getAttribute('data-count'));
+      var decimals = (el.getAttribute('data-count').split('.')[1] || '').length;
+      var duration = 1600;
+      var start = performance.now();
+      function tick(now) {
+        var p = Math.min((now - start) / duration, 1);
+        var eased = 1 - Math.pow(1 - p, 3);
+        el.textContent = (target * eased).toFixed(decimals);
+        if (p < 1) requestAnimationFrame(tick);
+        else el.textContent = target.toFixed(decimals);
+      }
+      requestAnimationFrame(tick);
+    }
+    var counters = document.querySelectorAll('[data-count]');
+    if ('IntersectionObserver' in window && counters.length) {
+      var cio = new IntersectionObserver(function(entries) {
+        entries.forEach(function(e) {
+          if (e.isIntersecting) {
+            animateCount(e.target);
+            cio.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.4 });
+      counters.forEach(function(el) { cio.observe(el); });
+    }
+
+    // 3. Subtle parallax on hero orbs (rAF, throttled)
+    var orbs = document.querySelectorAll('.hero__orb');
+    var heroEl = document.querySelector('.hero');
+    if (orbs.length && heroEl && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      var ticking = false;
+      window.addEventListener('scroll', function() {
+        if (!ticking) {
+          window.requestAnimationFrame(function() {
+            var y = window.scrollY;
+            if (y < window.innerHeight) {
+              orbs.forEach(function(orb, i) {
+                var speed = 0.12 + i * 0.06;
+                orb.style.transform = 'translateY(' + (y * speed) + 'px)';
+              });
+            }
+            ticking = false;
+          });
+          ticking = true;
+        }
+      }, { passive: true });
+    }
+  })();
+  </script>
 </body>
 </html>

@@ -1,12 +1,150 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+
+const team = [
+  { name: 'Elena Marsh', role: 'Director of Research', focus: 'AI benchmarks & governance', initials: 'EM' },
+  { name: 'David Okafor', role: 'Principal Analyst', focus: 'Enterprise software', initials: 'DO' },
+  { name: 'Priya Raman', role: 'Senior Methodologist', focus: 'Evidence design & stats', initials: 'PR' },
+  { name: 'Marcus Chen', role: 'Senior Analyst', focus: 'Data infrastructure', initials: 'MC' },
+  { name: 'Sofia Reyes', role: 'Policy Analyst', focus: 'AI regulation & compliance', initials: 'SR' },
+  { name: 'James Whitfield', role: 'Research Editor', focus: 'Editorial standards', initials: 'JW' },
+];
 ---
 
-<BaseLayout title="Our Team" description="Our Team — Hargrove Research Group">
-  <section class="section">
-    <div class="container" style="max-width:800px;">
-      <h1 style="margin-bottom:1.5rem;">Our Team</h1>
-      <p>Our research team brings together analysts, methodologists, and domain experts committed to independent, evidence-based analysis.</p><p>Each team member is named in the reports they author or review, maintaining full accountability for research quality.</p>
+<BaseLayout title="Our Team" description="Meet the analysts, methodologists, and reviewers behind Hargrove Research Group.">
+
+  <section class="page-hero">
+    <div class="container">
+      <span class="kicker reveal">The Team</span>
+      <h1 class="page-hero__title reveal" data-delay="1">
+        Named authors.<br/>
+        <em>Public accountability.</em>
+      </h1>
+      <p class="page-hero__sub reveal" data-delay="2">
+        Every report is signed. Every reviewer is named. Every analyst stands behind the work.
+        No anonymous "editorial teams." No unaccountable scoring.
+      </p>
     </div>
   </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="team-grid">
+        {team.map((member, i) => (
+          <div class="team-card reveal" data-delay={String((i % 3) + 1)}>
+            <div class="team-card__avatar" aria-hidden="true">
+              <span>{member.initials}</span>
+            </div>
+            <h3 class="team-card__name">{member.name}</h3>
+            <p class="team-card__role">{member.role}</p>
+            <p class="team-card__focus mono">{member.focus}</p>
+          </div>
+        ))}
+      </div>
+
+      <div class="team-cta reveal">
+        <div>
+          <h2 style="font-size:1.5rem;margin-bottom:0.5rem;">Want to review our work?</h2>
+          <p style="color:var(--text-500);margin:0;">We publish reviewer names on every report. Apply to join the panel.</p>
+        </div>
+        <a href="/reviewers" class="btn btn-outline">Become a Reviewer</a>
+      </div>
+    </div>
+  </section>
+
 </BaseLayout>
+
+<style>
+  .page-hero {
+    padding: 9rem 0 4rem;
+    background: linear-gradient(180deg, var(--paper-warm) 0%, var(--paper) 100%);
+    border-bottom: 1px solid var(--border-hairline);
+  }
+  .page-hero__title {
+    font-size: clamp(2.5rem, 5.5vw, 4rem);
+    font-weight: 500;
+    letter-spacing: -0.03em;
+    color: var(--ink-900);
+    margin: 1rem 0 1.5rem;
+    line-height: 1.05;
+  }
+  .page-hero__title em { font-style: italic; font-weight: 400; color: var(--copper-500); }
+  .page-hero__sub {
+    font-size: 1.125rem;
+    color: var(--text-700);
+    line-height: 1.7;
+    max-width: 640px;
+  }
+
+  .team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+  .team-card {
+    background: #fff;
+    border: 1px solid var(--border-soft);
+    border-radius: var(--radius);
+    padding: 2rem;
+    text-align: center;
+    transition: transform 320ms var(--ease-out), box-shadow 320ms var(--ease-out), border-color 320ms var(--ease-out);
+  }
+  .team-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--copper-400);
+  }
+  .team-card__avatar {
+    width: 72px; height: 72px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--copper-400), var(--signal-400));
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1.375rem;
+    margin: 0 auto 1.25rem;
+    letter-spacing: 0.02em;
+  }
+  .team-card__name {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--ink-900);
+    margin-bottom: 0.25rem;
+    letter-spacing: -0.015em;
+  }
+  .team-card__role {
+    font-size: 0.9375rem;
+    color: var(--copper-500);
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+  }
+  .team-card__focus {
+    font-size: 0.75rem;
+    color: var(--text-500);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  .team-cta {
+    margin-top: 4rem;
+    padding: 2.5rem;
+    background: var(--ink-950);
+    color: #fff;
+    border-radius: var(--radius-lg);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+  .team-cta h2 { color: #fff; }
+  .team-cta p { color: rgba(199, 208, 232, 0.7) !important; }
+
+  @media (max-width: 768px) {
+    .page-hero { padding: 7rem 0 3rem; }
+    .team-cta { flex-direction: column; align-items: flex-start; }
+  }
+</style>

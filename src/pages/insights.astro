@@ -5,32 +5,212 @@ import { getCollection } from 'astro:content';
 const posts = (await getCollection('research'))
   .filter(p => p.data.status === 'Live')
   .sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf());
+
+const featured = posts[0];
+const rest = posts.slice(1);
 ---
 
 <BaseLayout title="Insights" description="Browse all published research from Hargrove Research Group.">
-  <section class="section">
+
+  <!-- Page header -->
+  <section class="page-hero">
     <div class="container">
-      <h1 style="margin-bottom:0.5rem;">Research &amp; Insights</h1>
-      <p style="color:var(--color-muted);margin-bottom:2.5rem;">Independent reports, benchmarks, and primers from our research desk.</p>
-      {posts.length > 0 ? (
-        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:2rem;">
-          {posts.map(post => (
-            <article style="background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius);padding:1.5rem;">
-              <div style="display:flex;gap:0.5rem;margin-bottom:0.75rem;">
-                {post.data.outputFormat && <span style="background:var(--color-primary);color:#fff;font-size:0.65rem;padding:0.2rem 0.5rem;border-radius:4px;text-transform:uppercase;">{post.data.outputFormat}</span>}
-                {post.data.category && <span style="background:var(--color-accent);color:#fff;font-size:0.65rem;padding:0.2rem 0.5rem;border-radius:4px;text-transform:uppercase;">{post.data.category}</span>}
-              </div>
-              <h3 style="font-size:1.15rem;margin-bottom:0.5rem;"><a href={`/research/${post.id}`} style="color:var(--color-primary);">{post.data.title}</a></h3>
-              <p style="color:var(--color-muted);font-size:0.9rem;line-height:1.6;">{post.data.description}</p>
-              <p style="color:var(--color-muted);font-size:0.8rem;margin-top:0.75rem;">
-                {post.data.author} &middot; {new Date(post.data.publishDate).toLocaleDateString('en-US', { month:'short', day:'numeric', year:'numeric' })}
-              </p>
+      <span class="kicker reveal">Research &amp; Analysis</span>
+      <h1 class="page-hero__title reveal" data-delay="1">
+        Independent research,<br/>
+        <em>peer-reviewed</em> and disclosed.
+      </h1>
+      <p class="page-hero__sub reveal" data-delay="2">
+        Benchmarks, deployment analysis, and governance research — published with methodology,
+        limitations, and named reviewers. No pay-to-rank. Ever.
+      </p>
+      <div class="page-hero__meta reveal" data-delay="3">
+        <span class="mono"><strong>{posts.length}</strong> published reports</span>
+        <span class="mono"><strong>42</strong> benchmark suites</span>
+        <span class="mono"><strong>180+</strong> vendors tracked</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured post -->
+  {featured && (
+    <section class="section section--tight">
+      <div class="container">
+        <span class="section__label reveal">Latest Research</span>
+        <a href={`/research/${featured.id}`} class="featured-post reveal" data-delay="1">
+          <div class="featured-post__content">
+            <div class="featured-post__tags">
+              <span class="tag tag--accent">{featured.data.outputFormat || 'Report'}</span>
+              {featured.data.category && <span class="tag tag--ink">{featured.data.category}</span>}
+            </div>
+            <h2 class="featured-post__title">{featured.data.title}</h2>
+            <p class="featured-post__desc">{featured.data.description}</p>
+            <div class="featured-post__meta mono">
+              <span>{featured.data.author}</span>
+              <span>{new Date(featured.data.publishDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</span>
+              {featured.data.reviewer && <span>Reviewed by {featured.data.reviewer}</span>}
+            </div>
+          </div>
+          <div class="featured-post__arrow" aria-hidden="true">→</div>
+        </a>
+      </div>
+    </section>
+  )}
+
+  <!-- All posts -->
+  <section class="section section--tight" style="padding-top:0;">
+    <div class="container">
+      <div class="section__header reveal">
+        <div>
+          <span class="section__label">Archive</span>
+          <h2 class="text-balance">All published research</h2>
+        </div>
+      </div>
+      {rest.length > 0 ? (
+        <div class="insights-grid">
+          {rest.map((post, i) => (
+            <article class="insight-card reveal" data-delay={String((i % 3) + 1)}>
+              <span class="insight-card__tag">{post.data.outputFormat || 'Report'}</span>
+              <h3><a href={`/research/${post.id}`}>{post.data.title}</a></h3>
+              <p>{post.data.description}</p>
+              <span class="insight-card__meta">
+                {post.data.author} &middot; {new Date(post.data.publishDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+              </span>
             </article>
           ))}
         </div>
       ) : (
-        <p style="color:var(--color-muted);">No research articles published yet.</p>
+        !featured && <p style="color:var(--color-muted);">No research articles published yet.</p>
       )}
     </div>
   </section>
+
 </BaseLayout>
+
+<style>
+  .page-hero {
+    padding: 9rem 0 4rem;
+    background: linear-gradient(180deg, var(--paper-warm) 0%, var(--paper) 100%);
+    border-bottom: 1px solid var(--border-hairline);
+  }
+  .page-hero__title {
+    font-size: clamp(2.5rem, 5.5vw, 4rem);
+    font-weight: 500;
+    letter-spacing: -0.03em;
+    color: var(--ink-900);
+    margin: 1rem 0 1.5rem;
+    line-height: 1.05;
+  }
+  .page-hero__title em {
+    font-style: italic;
+    font-weight: 400;
+    color: var(--copper-500);
+  }
+  .page-hero__sub {
+    font-size: 1.125rem;
+    color: var(--text-700);
+    line-height: 1.7;
+    max-width: 640px;
+    margin-bottom: 2rem;
+  }
+  .page-hero__meta {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    font-size: 0.8125rem;
+    color: var(--text-500);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .page-hero__meta strong {
+    color: var(--copper-500);
+    font-weight: 600;
+    margin-right: 4px;
+  }
+
+  .featured-post {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 2rem;
+    background: var(--ink-950);
+    color: #fff;
+    padding: 3rem;
+    border-radius: var(--radius-lg);
+    text-decoration: none;
+    position: relative;
+    overflow: hidden;
+    transition: transform 320ms var(--ease-out), box-shadow 320ms var(--ease-out);
+    box-shadow: var(--shadow-md);
+    margin-top: 1.5rem;
+  }
+  .featured-post::before {
+    content: '';
+    position: absolute;
+    top: -100px; right: -100px;
+    width: 300px; height: 300px;
+    background: radial-gradient(circle, rgba(240, 178, 107, 0.15), transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  .featured-post:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-xl);
+    color: #fff;
+  }
+  .featured-post__tags {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 1rem;
+  }
+  .tag {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+  }
+  .tag--accent { background: var(--copper-500); color: #fff; }
+  .tag--ink { background: rgba(199, 208, 232, 0.15); color: var(--ink-100); }
+  .featured-post__title {
+    color: #fff;
+    font-size: clamp(1.5rem, 3vw, 2.25rem);
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.75rem;
+    line-height: 1.2;
+  }
+  .featured-post__desc {
+    color: rgba(199, 208, 232, 0.78);
+    font-size: 1.0625rem;
+    line-height: 1.7;
+    max-width: 720px;
+    margin-bottom: 1.25rem;
+  }
+  .featured-post__meta {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    font-size: 0.75rem;
+    color: rgba(199, 208, 232, 0.55);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .featured-post__arrow {
+    font-size: 2.5rem;
+    color: var(--copper-400);
+    transition: transform 240ms var(--ease-out);
+  }
+  .featured-post:hover .featured-post__arrow {
+    transform: translateX(8px);
+  }
+
+  @media (max-width: 768px) {
+    .page-hero { padding: 7rem 0 3rem; }
+    .featured-post { grid-template-columns: 1fr; padding: 2rem; }
+    .featured-post__arrow { display: none; }
+  }
+</style>

@@ -2,11 +2,180 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
-<BaseLayout title="Contact" description="Contact — Hargrove Research Group">
-  <section class="section">
-    <div class="container" style="max-width:800px;">
-      <h1 style="margin-bottom:1.5rem;">Contact</h1>
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:2rem;margin-top:1.5rem;"><div style="background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius);padding:1.5rem;"><h3 style="margin-top:0;">Research Desk</h3><p><a href="mailto:research@hargroveresearch.com">research@hargroveresearch.com</a></p><p>For research inquiries and report requests.</p></div><div style="background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius);padding:1.5rem;"><h3 style="margin-top:0;">Editorial</h3><p><a href="mailto:editorial@hargroveresearch.com">editorial@hargroveresearch.com</a></p><p>For editorial inquiries and submissions.</p></div><div style="background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius);padding:1.5rem;"><h3 style="margin-top:0;">Corrections</h3><p><a href="mailto:corrections@hargroveresearch.com">corrections@hargroveresearch.com</a></p><p>Found an error? We welcome corrections.</p></div></div>
+<BaseLayout title="Contact" description="Contact Hargrove Research Group — research desk, editorial, corrections.">
+
+  <section class="page-hero">
+    <div class="container">
+      <span class="kicker reveal">Contact</span>
+      <h1 class="page-hero__title reveal" data-delay="1">
+        Three desks.<br/>
+        <em>One standard.</em>
+      </h1>
+      <p class="page-hero__sub reveal" data-delay="2">
+        Reach the right team directly. Every message is read by a named analyst,
+        not routed through a ticket queue.
+      </p>
     </div>
   </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="contact-grid">
+        <a href="mailto:research@hargroveresearch.com" class="contact-card reveal" data-delay="1">
+          <span class="contact-card__num mono">01</span>
+          <h3>Research Desk</h3>
+          <p class="contact-card__email mono">research@hargroveresearch.com</p>
+          <p class="contact-card__desc">For research inquiries, report requests, and methodology questions.</p>
+          <span class="contact-card__arrow">→</span>
+        </a>
+        <a href="mailto:editorial@hargroveresearch.com" class="contact-card reveal" data-delay="2">
+          <span class="contact-card__num mono">02</span>
+          <h3>Editorial</h3>
+          <p class="contact-card__email mono">editorial@hargroveresearch.com</p>
+          <p class="contact-card__desc">For editorial inquiries, submissions, and press partnerships.</p>
+          <span class="contact-card__arrow">→</span>
+        </a>
+        <a href="mailto:corrections@hargroveresearch.com" class="contact-card reveal" data-delay="3">
+          <span class="contact-card__num mono">03</span>
+          <h3>Corrections</h3>
+          <p class="contact-card__email mono">corrections@hargroveresearch.com</p>
+          <p class="contact-card__desc">Found an error? We welcome corrections — publicly credited.</p>
+          <span class="contact-card__arrow">→</span>
+        </a>
+      </div>
+
+      <div class="contact-info reveal">
+        <div class="contact-info__row">
+          <div>
+            <p class="contact-info__label mono">Office</p>
+            <p class="contact-info__value">
+              110 Wall Street, 11th Floor<br/>
+              New York, NY 10005
+            </p>
+          </div>
+          <div>
+            <p class="contact-info__label mono">Phone</p>
+            <p class="contact-info__value mono">+1-212-555-0234</p>
+          </div>
+          <div>
+            <p class="contact-info__label mono">Response Time</p>
+            <p class="contact-info__value">Within 1 business day</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
 </BaseLayout>
+
+<style>
+  .page-hero {
+    padding: 9rem 0 4rem;
+    background: linear-gradient(180deg, var(--paper-warm) 0%, var(--paper) 100%);
+    border-bottom: 1px solid var(--border-hairline);
+  }
+  .page-hero__title {
+    font-size: clamp(2.5rem, 5.5vw, 4rem);
+    font-weight: 500;
+    letter-spacing: -0.03em;
+    color: var(--ink-900);
+    margin: 1rem 0 1.5rem;
+    line-height: 1.05;
+  }
+  .page-hero__title em { font-style: italic; font-weight: 400; color: var(--copper-500); }
+  .page-hero__sub {
+    font-size: 1.125rem;
+    color: var(--text-700);
+    line-height: 1.7;
+    max-width: 640px;
+  }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+  .contact-card {
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+    background: #fff;
+    border: 1px solid var(--border-soft);
+    border-radius: var(--radius);
+    text-decoration: none;
+    color: inherit;
+    transition: transform 320ms var(--ease-out), box-shadow 320ms var(--ease-out), border-color 320ms var(--ease-out);
+    position: relative;
+  }
+  .contact-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--copper-400);
+  }
+  .contact-card__num {
+    font-size: 0.75rem;
+    color: var(--copper-500);
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    margin-bottom: 1rem;
+  }
+  .contact-card h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: -0.015em;
+    color: var(--ink-900);
+    margin-bottom: 0.5rem;
+  }
+  .contact-card__email {
+    font-size: 0.8125rem;
+    color: var(--copper-500);
+    margin-bottom: 1rem;
+    word-break: break-all;
+  }
+  .contact-card__desc {
+    color: var(--text-500);
+    font-size: 0.9375rem;
+    line-height: 1.65;
+    flex: 1;
+  }
+  .contact-card__arrow {
+    font-size: 1.25rem;
+    color: var(--copper-500);
+    margin-top: 1rem;
+    transition: transform 240ms var(--ease-out);
+  }
+  .contact-card:hover .contact-card__arrow {
+    transform: translateX(6px);
+  }
+
+  .contact-info {
+    margin-top: 4rem;
+    padding: 2.5rem;
+    background: var(--paper-warm);
+    border-radius: var(--radius);
+    border: 1px solid var(--border-soft);
+  }
+  .contact-info__row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+  }
+  .contact-info__label {
+    font-size: 0.6875rem;
+    color: var(--copper-500);
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+  .contact-info__value {
+    color: var(--ink-900);
+    font-size: 1rem;
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  @media (max-width: 768px) {
+    .page-hero { padding: 7rem 0 3rem; }
+  }
+</style>
