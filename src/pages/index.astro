@@ -23,7 +23,7 @@ const posts = (await getCollection('research'))
     <div class="hero__orb hero__orb--2"></div>
     <div class="hero__orb hero__orb--3"></div>
 
-    <div class="container hero__inner">
+    <div class="container">
       <div class="hero__content">
         <span class="hero__kicker">
           <span class="pulse-dot pulse-dot--copper"></span>
@@ -48,26 +48,23 @@ const posts = (await getCollection('research'))
         </div>
       </div>
 
-      <!-- Simplified KPI display instead of complex card -->
+      <!-- Simple KPI strip below content -->
       <div class="hero-kpi-strip reveal" data-delay="1">
         <div class="hero-kpi-item">
           <div class="hero-kpi-value"><span data-count="94.2">0</span><span class="unit">%</span></div>
           <div class="hero-kpi-label">GPT-5 Reasoning Accuracy</div>
           <div class="hero-kpi-trend up">&#9650;2.4%</div>
         </div>
-        <div class="hero-kpi-divider" aria-hidden="true"></div>
         <div class="hero-kpi-item">
           <div class="hero-kpi-value"><span data-count="3.7">0</span><span class="unit">&times;</span></div>
           <div class="hero-kpi-label">RAG Cost Efficiency</div>
           <div class="hero-kpi-trend up">&#9650;0.3&times;</div>
         </div>
-        <div class="hero-kpi-divider" aria-hidden="true"></div>
         <div class="hero-kpi-item">
           <div class="hero-kpi-value"><span data-count="67">0</span><span class="unit">%</span></div>
           <div class="hero-kpi-label">F500 Adoption Rate</div>
           <div class="hero-kpi-trend up">&#9650;12%</div>
         </div>
-        <div class="hero-kpi-divider" aria-hidden="true"></div>
         <div class="hero-kpi-item">
           <div class="hero-kpi-value"><span data-count="4.2">0</span><span class="unit">B</span></div>
           <div class="hero-kpi-label">Capital Deployed (H1)</div>
