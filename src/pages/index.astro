@@ -48,87 +48,31 @@ const posts = (await getCollection('research'))
         </div>
       </div>
 
-      <!-- Animated benchmark card -->
-      <div class="hero__visual">
-        <div class="hero-card">
-          <div class="hero-card__header">
-            <span class="hero-card__badge"><span class="pulse-dot pulse-dot--green" style="margin-right:4px"></span>Live Benchmark</span>
-            <span class="hero-card__timestamp mono" id="hero-timestamp">—</span>
-          </div>
-          <h3 class="hero-card__title">Enterprise AI Readiness Index</h3>
-          <p class="hero-card__subtitle">Q3 2026 &middot; 24 platforms tracked</p>
-
-          <div class="hero-card__metrics">
-            <div class="hero-metric">
-              <span class="hero-metric__num">
-                <span data-count="94.2">0</span><span class="unit">%</span>
-                <span class="hero-metric__trend">&#9650;2.4</span>
-              </span>
-              <span class="hero-metric__label">Reasoning Accuracy</span>
-            </div>
-            <div class="hero-metric">
-              <span class="hero-metric__num">
-                <span data-count="3.7">0</span><span class="unit">&times;</span>
-                <span class="hero-metric__trend">&#9650;0.3</span>
-              </span>
-              <span class="hero-metric__label">Cost Efficiency Gap</span>
-            </div>
-            <div class="hero-metric">
-              <span class="hero-metric__num">
-                <span data-count="67">0</span><span class="unit">%</span>
-                <span class="hero-metric__trend">&#9650;12</span>
-              </span>
-              <span class="hero-metric__label">F500 Adoption</span>
-            </div>
-            <div class="hero-metric">
-              <span class="hero-metric__num">
-                <span data-count="4.2">0</span><span class="unit">B</span>
-                <span class="hero-metric__trend hero-metric__trend--down">&#9660;0.8</span>
-              </span>
-              <span class="hero-metric__label">H1 Capital Deployed</span>
-            </div>
-          </div>
-
-          <div class="hero-card__chart">
-            <div class="hero-card__chart-label">
-              <span>Readiness Score &middot; Trailing 12M</span>
-              <span class="mono" style="color:var(--copper-300)">+18.2%</span>
-            </div>
-            <svg viewBox="0 0 380 90" preserveAspectRatio="none" aria-hidden="true">
-              <defs>
-                <linearGradient id="chartFill" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stop-color="#E09543" stop-opacity="0.4"/>
-                  <stop offset="100%" stop-color="#E09543" stop-opacity="0"/>
-                </linearGradient>
-                <linearGradient id="chartStroke" x1="0" y1="0" x2="1" y2="0">
-                  <stop offset="0%" stop-color="#E09543"/>
-                  <stop offset="100%" stop-color="#8B7CF9"/>
-                </linearGradient>
-              </defs>
-              <g opacity="0.15" stroke="#C7D0E8" stroke-width="0.5">
-                <line x1="0" y1="22" x2="380" y2="22"/>
-                <line x1="0" y1="45" x2="380" y2="45"/>
-                <line x1="0" y1="68" x2="380" y2="68"/>
-              </g>
-              <path d="M0,68 L30,62 L60,65 L90,55 L120,58 L150,48 L180,52 L210,40 L240,44 L270,32 L300,36 L330,24 L360,28 L380,18 L380,90 L0,90 Z"
-                    fill="url(#chartFill)"/>
-              <path d="M0,68 L30,62 L60,65 L90,55 L120,58 L150,48 L180,52 L210,40 L240,44 L270,32 L300,36 L330,24 L360,28 L380,18"
-                    fill="none" stroke="url(#chartStroke)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                    stroke-dasharray="1000" stroke-dashoffset="1000">
-                <animate attributeName="stroke-dashoffset" from="1000" to="0" dur="2.4s" begin="0.6s" fill="freeze" calcMode="spline" keySplines="0.16 1 0.3 1"/>
-              </path>
-              <circle cx="380" cy="18" r="3.5" fill="#E09543">
-                <animate attributeName="r" values="3.5;5;3.5" dur="2s" repeatCount="indefinite"/>
-                <animate attributeName="opacity" values="1;0.6;1" dur="2s" repeatCount="indefinite"/>
-              </circle>
-            </svg>
-          </div>
+      <!-- Simplified KPI display instead of complex card -->
+      <div class="hero-kpi-strip reveal" data-delay="1">
+        <div class="hero-kpi-item">
+          <div class="hero-kpi-value"><span data-count="94.2">0</span><span class="unit">%</span></div>
+          <div class="hero-kpi-label">GPT-5 Reasoning Accuracy</div>
+          <div class="hero-kpi-trend up">&#9650;2.4%</div>
         </div>
-
-        <!-- Floating accent chips -->
-        <div class="hero-chip hero-chip--1"><strong>GPT-5</strong> 94.2% reasoning</div>
-        <div class="hero-chip hero-chip--2"><strong>RAG</strong> 3.7&times; cost edge</div>
-        <div class="hero-chip hero-chip--3"><strong>+240</strong> press citations</div>
+        <div class="hero-kpi-divider" aria-hidden="true"></div>
+        <div class="hero-kpi-item">
+          <div class="hero-kpi-value"><span data-count="3.7">0</span><span class="unit">&times;</span></div>
+          <div class="hero-kpi-label">RAG Cost Efficiency</div>
+          <div class="hero-kpi-trend up">&#9650;0.3&times;</div>
+        </div>
+        <div class="hero-kpi-divider" aria-hidden="true"></div>
+        <div class="hero-kpi-item">
+          <div class="hero-kpi-value"><span data-count="67">0</span><span class="unit">%</span></div>
+          <div class="hero-kpi-label">F500 Adoption Rate</div>
+          <div class="hero-kpi-trend up">&#9650;12%</div>
+        </div>
+        <div class="hero-kpi-divider" aria-hidden="true"></div>
+        <div class="hero-kpi-item">
+          <div class="hero-kpi-value"><span data-count="4.2">0</span><span class="unit">B</span></div>
+          <div class="hero-kpi-label">Capital Deployed (H1)</div>
+          <div class="hero-kpi-trend down">&#9660;0.8B</div>
+        </div>
       </div>
     </div>
   </section>
@@ -162,12 +106,24 @@ const posts = (await getCollection('research'))
     <div class="container">
       <p class="press-strip__label reveal">As featured in</p>
       <div class="press-strip__logos reveal" data-delay="1">
-        <span class="press-logo">Financial Times</span>
-        <span class="press-logo">Bloomberg</span>
-        <span class="press-logo">Wall Street Journal</span>
-        <span class="press-logo">Reuters</span>
-        <span class="press-logo">The Economist</span>
-        <span class="press-logo">TechCrunch</span>
+        <a href="https://www.ft.com" target="_blank" rel="noopener" class="press-logo-link" aria-label="Financial Times">
+          <img src="/logos/financial-times.svg" alt="Financial Times" class="press-logo-img"/>
+        </a>
+        <a href="https://www.bloomberg.com" target="_blank" rel="noopener" class="press-logo-link" aria-label="Bloomberg">
+          <img src="/logos/bloomberg.svg" alt="Bloomberg" class="press-logo-img"/>
+        </a>
+        <a href="https://www.wsj.com" target="_blank" rel="noopener" class="press-logo-link" aria-label="The Wall Street Journal">
+          <img src="/logos/wsj.svg" alt="The Wall Street Journal" class="press-logo-img"/>
+        </a>
+        <a href="https://www.reuters.com" target="_blank" rel="noopener" class="press-logo-link" aria-label="Reuters">
+          <img src="/logos/reuters.svg" alt="Reuters" class="press-logo-img"/>
+        </a>
+        <a href="https://www.economist.com" target="_blank" rel="noopener" class="press-logo-link" aria-label="The Economist">
+          <img src="/logos/economist.svg" alt="The Economist" class="press-logo-img"/>
+        </a>
+        <a href="https://techcrunch.com" target="_blank" rel="noopener" class="press-logo-link" aria-label="TechCrunch">
+          <img src="/logos/techcrunch.svg" alt="TechCrunch" class="press-logo-img"/>
+        </a>
       </div>
     </div>
   </section>
