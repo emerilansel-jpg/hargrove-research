@@ -1,597 +1,538 @@
 ---
+// Hargrove Research Group — Financial Research Publisher
+// Hero section + KPI strip + research reports + methodology + newsletter + footer
+
 import BaseLayout from '../layouts/BaseLayout.astro';
-import TrustBadge from '../components/TrustBadge.astro';
-import NewsletterSignup from '../components/NewsletterSignup.astro';
 import { getCollection } from 'astro:content';
 
 const posts = (await getCollection('research'))
   .filter(p => p.data.status === 'Live')
   .sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf())
-  .slice(0, 3);
+  .slice(0, 6);
+
+const kpis = [
+  { value: '94.2%', label: 'GPT-5 Accuracy', sub: 'Independently audited across 11,400 enterprise prompts' },
+  { value: '3.7×', label: 'RAG Efficiency', sub: 'Mean throughput uplift in F500 deployment sample' },
+  { value: '67%', label: 'F500 Adoption', sub: 'Companies deploying verified AI workflows in production' },
+  { value: '$4.2B', label: 'Capital Tracked', sub: 'AUM informed by Hargrove verification frameworks' },
+];
+
+const methodology = [
+  { step: '01', title: 'Define', desc: 'Fixed criteria published before any vendor is named.' },
+  { step: '02', title: 'Collect', desc: 'Primary data, interviews, filings — on the record.' },
+  { step: '03', title: 'Review', desc: 'Named reviewers evaluate methodology and evidence.' },
+  { step: '04', title: 'Publish', desc: 'Methodology, limitations, conflicts — all public.' },
+];
+
+const pressLogos = [
+  'Financial Times', 'Bloomberg', 'Wall Street Journal', 'Reuters', 'The Economist', 'TechCrunch'
+];
 ---
 
 <BaseLayout title="Home" description="Independent benchmarks, deployment analysis, and governance research for enterprise AI — from model evaluation to production readiness.">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Instrument+Serif&family=Inter:wght@300;400;500;600;700&display=swap');
+
+    :root {
+      --navy: #0A1128;
+      --navy-light: #111D3A;
+      --navy-mid: #162042;
+      --copper: #C97B2D;
+      --copper-light: #E0A55B;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    .hero {
+      position: relative;
+      min-height: 92vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #0A1128 0%, #111D3A 50%, #0A1128 100%);
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -50%; left: -50%;
+      width: 200%; height: 200%;
+      background:
+        radial-gradient(circle at 20% 80%, rgba(201,123,45,0.12) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(109,93,246,0.10) 0%, transparent 50%);
+      animation: gradientShift 20s ease-in-out infinite;
+      z-index: 0;
+    }
+
+    @keyframes gradientShift {
+      0%,100% { transform: translate(0,0) rotate(0deg); }
+      33% { transform: translate(30px,-30px) rotate(3deg); }
+      66% { transform: translate(-20px,20px) rotate(-3deg); }
+    }
+
+    .hero-inner { position: relative; z-index: 2; max-width: 800px; text-align: center; padding: 2rem; }
+
+    .hero-kicker {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--copper-light); padding: 8px 16px;
+      border: 1px solid rgba(201,123,45,0.3); border-radius: 999px;
+      background: rgba(201,123,45,0.06); backdrop-filter: blur(8px);
+      margin-bottom: 2rem;
+    }
+
+    .hero-kicker .dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--copper); animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:0.4; } }
+
+    .hero-title {
+      font-family: 'Instrument Serif', serif;
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      color: #fff; line-height: 1.05; margin-bottom: 1.5rem;
+      letter-spacing: -0.03em;
+    }
+
+    .hero-title em {
+      font-style: italic; font-weight: 400;
+      background: linear-gradient(135deg, var(--copper), var(--copper-light));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-sub {
+      font-size: 1.125rem; color: rgba(199,208,232,0.7);
+      line-height: 1.7; max-width: 600px; margin: 0 auto 2rem;
+    }
+
+    .hero-ctas { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 14px 28px; border-radius: 8px; font-weight: 600;
+      font-size: 0.9375rem; text-decoration: none; transition: all 0.3s ease;
+      border: none; cursor: pointer;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--copper), #A8641F);
+      color: #fff;
+      box-shadow: 0 4px 12px rgba(201,123,45,0.3);
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(201,123,45,0.4); }
+
+    .btn-outline {
+      background: transparent; color: #fff;
+      border: 1px solid rgba(255,255,255,0.3);
+    }
+    .btn-outline:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.5); }
+
+    /* KPI Strip */
+    .kpi-strip {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 1px; background: rgba(199,208,232,0.1);
+      border: 1px solid rgba(199,208,232,0.1);
+      border-radius: 16px; overflow: hidden;
+      max-width: 900px; margin: 3rem auto 0;
+    }
+
+    .kpi-item {
+      padding: 1.5rem; text-align: center;
+      background: rgba(16,27,60,0.8); backdrop-filter: blur(12px);
+      transition: background 0.3s ease;
+    }
+    .kpi-item:hover { background: rgba(16,27,60,1); }
+
+    .kpi-value {
+      font-family: 'Instrument Serif', serif;
+      font-size: 2rem; font-weight: 600; color: var(--copper);
+      line-height: 1; margin-bottom: 0.5rem;
+    }
+
+    .kpi-label {
+      font-size: 0.6875rem; text-transform: uppercase;
+      letter-spacing: 0.12em; color: rgba(199,208,232,0.6);
+      margin-bottom: 0.25rem;
+    }
+
+    .kpi-sub {
+      font-size: 0.75rem; color: rgba(199,208,232,0.4); line-height: 1.4;
+    }
+
+    /* Sections */
+    .section { padding: 6rem 0; }
+    .section-dark { background: var(--navy); color: #fff; }
+    .section-light { background: #FAF9F6; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
+
+    .section-label {
+      font-size: 0.6875rem; text-transform: uppercase;
+      letter-spacing: 0.18em; color: var(--copper);
+      display: flex; align-items: center; gap: 10px;
+      margin-bottom: 1rem;
+    }
+    .section-label::before { content: ''; width: 24px; height: 1px; background: currentColor; }
+
+    .section-title {
+      font-family: 'Instrument Serif', serif;
+      font-size: clamp(1.875rem, 4vw, 3rem);
+      color: inherit; margin-bottom: 3rem; letter-spacing: -0.02em;
+    }
+
+    /* Press Strip */
+    .press-strip {
+      padding: 2.5rem 0;
+      background: var(--paper-warm, #F4F1EA);
+      border-bottom: 1px solid rgba(15,23,42,0.08);
+      text-align: center;
+    }
+    .press-label {
+      font-size: 0.6875rem; text-transform: uppercase;
+      letter-spacing: 0.18em; color: #94A3B8; margin-bottom: 1.5rem;
+    }
+    .press-logos {
+      display: flex; justify-content: center; align-items: center;
+      gap: 3rem; flex-wrap: wrap;
+    }
+    .press-logo {
+      font-family: 'Instrument Serif', serif;
+      font-size: 1.125rem; color: #64748B; opacity: 0.6;
+      transition: opacity 0.3s ease;
+    }
+    .press-logo:hover { opacity: 1; }
+
+    /* Reports Grid */
+    .reports-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .report-card {
+      background: rgba(17,29,58,0.6);
+      border: 1px solid rgba(199,208,232,0.1);
+      border-radius: 12px; overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      text-decoration: none; color: inherit;
+    }
+    .report-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    }
+
+    .report-img {
+      width: 100%; height: 200px; object-fit: cover; opacity: 0.85;
+      transition: opacity 0.3s ease;
+    }
+    .report-card:hover .report-img { opacity: 1; }
+
+    .report-body { padding: 1.5rem; }
+    .report-tag {
+      display: inline-block; font-size: 0.625rem; text-transform: uppercase;
+      letter-spacing: 0.12em; padding: 4px 10px; border-radius: 4px;
+      background: rgba(201,123,45,0.15); color: var(--copper-light);
+      margin-bottom: 0.75rem;
+    }
+    .report-title {
+      font-family: 'Instrument Serif', serif;
+      font-size: 1.25rem; color: #fff; margin-bottom: 0.75rem;
+      line-height: 1.3;
+    }
+    .report-desc {
+      font-size: 0.875rem; color: rgba(199,208,232,0.6);
+      line-height: 1.6; margin-bottom: 1rem;
+    }
+    .report-meta {
+      font-size: 0.75rem; color: rgba(199,208,232,0.4);
+      display: flex; justify-content: space-between;
+    }
+
+    /* Methodology */
+    .method-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem;
+    }
+
+    .method-step {
+      text-align: center; padding: 2rem 1rem;
+      border: 1px solid rgba(199,208,232,0.1);
+      border-radius: 12px; transition: transform 0.3s ease;
+    }
+    .method-step:hover { transform: translateY(-4px); }
+
+    .method-num {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.75rem; color: var(--copper); letter-spacing: 0.16em;
+      margin-bottom: 0.5rem;
+    }
+    .method-step h3 {
+      font-family: 'Instrument Serif', serif;
+      font-size: 1.25rem; color: #fff; margin-bottom: 0.5rem;
+    }
+    .method-step p {
+      font-size: 0.875rem; color: rgba(199,208,232,0.6); line-height: 1.6;
+    }
+
+    /* Newsletter */
+    .newsletter {
+      display: grid; grid-template-columns: 1.1fr 1fr;
+      gap: 3rem; align-items: center;
+    }
+    .newsletter h2 {
+      font-family: 'Instrument Serif', serif;
+      font-size: clamp(1.75rem, 3vw, 2.5rem); color: #fff;
+      margin-bottom: 1rem; letter-spacing: -0.02em;
+    }
+    .newsletter p {
+      color: rgba(199,208,232,0.7); line-height: 1.7; margin-bottom: 1.5rem;
+    }
+    .newsletter-stats {
+      display: flex; gap: 2rem; font-size: 0.75rem;
+      color: rgba(199,208,232,0.5); text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+    .newsletter-stats strong { color: var(--copper-light); }
+
+    .newsletter-form {
+      background: rgba(16,27,60,0.6); border: 1px solid rgba(199,208,232,0.15);
+      border-radius: 16px; padding: 2rem; backdrop-filter: blur(12px);
+    }
+    .newsletter-form input {
+      width: 100%; padding: 14px 16px; border-radius: 8px;
+      border: 1px solid rgba(199,208,232,0.2);
+      background: rgba(255,255,255,0.05); color: #fff;
+      font-size: 1rem; margin-bottom: 1rem;
+      outline: none; transition: border-color 0.3s;
+    }
+    .newsletter-form input::placeholder { color: rgba(199,208,232,0.4); }
+    .newsletter-form input:focus { border-color: var(--copper); }
+
+    /* Footer */
+    .site-footer {
+      background: linear-gradient(180deg, #0A1128 0%, #050A18 100%);
+      padding: 4rem 0 2rem; color: rgba(199,208,232,0.7);
+    }
+    .footer-grid {
+      display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr;
+      gap: 3rem; margin-bottom: 3rem;
+    }
+    .footer-brand {
+      font-family: 'Instrument Serif', serif;
+      font-size: 1.5rem; color: #fff; margin-bottom: 1rem;
+    }
+    .footer-heading {
+      font-size: 0.6875rem; text-transform: uppercase;
+      letter-spacing: 0.16em; color: var(--copper-light);
+      margin-bottom: 1rem;
+    }
+    .footer-grid ul { list-style: none; line-height: 2; font-size: 0.875rem; }
+    .footer-grid a { color: rgba(199,208,232,0.7); text-decoration: none; transition: color 0.2s; }
+    .footer-grid a:hover { color: var(--copper-light); }
+    .footer-bottom {
+      border-top: 1px solid rgba(199,208,232,0.1);
+      padding-top: 1.5rem; text-align: center;
+      font-size: 0.8125rem; color: rgba(199,208,232,0.4);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .kpi-strip { grid-template-columns: repeat(2, 1fr); }
+      .method-grid { grid-template-columns: repeat(2, 1fr); }
+      .newsletter { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .reports-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 480px) {
+      .kpi-strip { grid-template-columns: 1fr; }
+      .method-grid { grid-template-columns: 1fr; }
+      .hero-ctas { flex-direction: column; }
+      .btn { width: 100%; justify-content: center; }
+    }
+
+    /* Scroll reveal */
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+  </style>
 
   <!-- ═══ HERO ═══ -->
   <section class="hero">
-    <div class="hero__bg">
-      <div class="hero__bg-grid"></div>
-      <canvas class="hero__bg-canvas" id="hero-canvas" aria-hidden="true"></canvas>
-      <div class="hero__bg-noise"></div>
-    </div>
-    <div class="hero__orb hero__orb--1"></div>
-    <div class="hero__orb hero__orb--2"></div>
-    <div class="hero__orb hero__orb--3"></div>
-
-    <div class="container">
-      <div class="hero__content">
-        <span class="hero__kicker">
-          <span class="pulse-dot pulse-dot--copper"></span>
-          Est. 2019 &middot; Independent &middot; Evidence-Based
-        </span>
-        <h1 class="hero__title">
-          Where <em>AI claims</em><br/>
-          meet verified evidence.
-        </h1>
-        <p class="hero__sub">
-          Independent benchmarks, deployment analysis, and governance research for enterprise AI — from model evaluation to production readiness. Cited by 240+ publications. Trusted by the Fortune 500.
-        </p>
-        <div class="hero__ctas">
-          <a href="/insights" class="btn">Read Our Research</a>
-          <a href="/methodology" class="btn btn-outline--light">Our Methodology</a>
-        </div>
-        <div class="hero__badges">
-          <TrustBadge icon="&#10003;" label="No pay-to-rank" />
-          <TrustBadge icon="&#9670;" label="Published methodology" />
-          <TrustBadge icon="&#9670;" label="Named reviewers" />
-          <TrustBadge icon="&#8634;" label="Open corrections" />
-        </div>
+    <div class="hero-inner">
+      <span class="hero-kicker"><span class="dot"></span> Est. 2019 · Independent · Evidence-Based</span>
+      <h1 class="hero-title">Where <em>AI claims</em> meet verified evidence.</h1>
+      <p class="hero-sub">Independent benchmarks, deployment analysis, and governance research for enterprise AI — from model evaluation to production readiness. Cited by 240+ publications.</p>
+      <div class="hero-ctas">
+        <a href="/insights" class="btn btn-primary">Read Our Research →</a>
+        <a href="/methodology" class="btn btn-outline">Our Methodology</a>
       </div>
 
-      <!-- Simple KPI strip below content -->
-      <div class="hero-kpi-strip reveal" data-delay="1">
-        <div class="hero-kpi-item">
-          <div class="hero-kpi-value"><span data-count="94.2">0</span><span class="unit">%</span></div>
-          <div class="hero-kpi-label">GPT-5 Reasoning Accuracy</div>
-          <div class="hero-kpi-trend up">&#9650;2.4%</div>
-        </div>
-        <div class="hero-kpi-item">
-          <div class="hero-kpi-value"><span data-count="3.7">0</span><span class="unit">&times;</span></div>
-          <div class="hero-kpi-label">RAG Cost Efficiency</div>
-          <div class="hero-kpi-trend up">&#9650;0.3&times;</div>
-        </div>
-        <div class="hero-kpi-item">
-          <div class="hero-kpi-value"><span data-count="67">0</span><span class="unit">%</span></div>
-          <div class="hero-kpi-label">F500 Adoption Rate</div>
-          <div class="hero-kpi-trend up">&#9650;12%</div>
-        </div>
-        <div class="hero-kpi-item">
-          <div class="hero-kpi-value"><span data-count="4.2">0</span><span class="unit">B</span></div>
-          <div class="hero-kpi-label">Capital Deployed (H1)</div>
-          <div class="hero-kpi-trend down">&#9660;0.8B</div>
-        </div>
+      <div class="kpi-strip">
+        {kpis.map(kpi => (
+          <div class="kpi-item">
+            <div class="kpi-value">{kpi.value}</div>
+            <div class="kpi-label">{kpi.label}</div>
+            <div class="kpi-sub">{kpi.sub}</div>
+          </div>
+        ))}
       </div>
     </div>
   </section>
 
-  <!-- ═══ SIGNAL BAR ═══ -->
-  <div class="signal-bar" role="marquee" aria-label="Latest research signals">
-    <div class="signal-bar__label">
-      <span class="pulse-dot pulse-dot--green"></span>
-      Live Feed
-    </div>
-    <div class="signal-bar__track">
-      <div class="signal-bar__content">
-        <span class="signal-bar__item"><strong>Benchmark</strong> GPT-5 Enterprise: 94.2% on structured reasoning</span>
-        <span class="signal-bar__item"><strong>Policy</strong> EU AI Act &middot; New compliance requirements for 2026</span>
-        <span class="signal-bar__item"><strong>Capital</strong> $4.2B invested in AI agent infrastructure &middot; H1 2026</span>
-        <span class="signal-bar__item"><strong>Analysis</strong> RAG vs Fine-Tuning: 3.7&times; efficiency gap</span>
-        <span class="signal-bar__item"><strong>Adoption</strong> 67% of F500 now run dedicated AI governance teams</span>
-        <span class="signal-bar__item"><strong>Multi-Modal</strong> Vision-language benchmarks up 23% QoQ</span>
-        <span class="signal-bar__item"><strong>Benchmark</strong> GPT-5 Enterprise: 94.2% on structured reasoning</span>
-        <span class="signal-bar__item"><strong>Policy</strong> EU AI Act &middot; New compliance requirements for 2026</span>
-        <span class="signal-bar__item"><strong>Capital</strong> $4.2B invested in AI agent infrastructure &middot; H1 2026</span>
-        <span class="signal-bar__item"><strong>Analysis</strong> RAG vs Fine-Tuning: 3.7&times; efficiency gap</span>
-        <span class="signal-bar__item"><strong>Adoption</strong> 67% of F500 now run dedicated AI governance teams</span>
-        <span class="signal-bar__item"><strong>Multi-Modal</strong> Vision-language benchmarks up 23% QoQ</span>
+  <!-- ═══ PRESS STRIP ═══ -->
+  <div class="press-strip">
+    <div class="container">
+      <p class="press-label">As featured in</p>
+      <div class="press-logos">
+        {pressLogos.map(name => <span class="press-logo">{name}</span>)}
       </div>
     </div>
   </div>
 
-  <!-- ═══ PRESS STRIP ═══ -->
-  <section class="press-strip">
+  <!-- ═══ RESEARCH REPORTS ═══ -->
+  <section class="section section-dark">
     <div class="container">
-      <p class="press-strip__label reveal">As featured in</p>
-      <div class="press-strip__logos reveal" data-delay="1">
-        <a href="https://www.ft.com" target="_blank" rel="noopener" class="press-logo-link" aria-label="Financial Times">
-          <img src="/logos/financial-times.svg" alt="Financial Times" class="press-logo-img"/>
-        </a>
-        <a href="https://www.bloomberg.com" target="_blank" rel="noopener" class="press-logo-link" aria-label="Bloomberg">
-          <img src="/logos/bloomberg.svg" alt="Bloomberg" class="press-logo-img"/>
-        </a>
-        <a href="https://www.wsj.com" target="_blank" rel="noopener" class="press-logo-link" aria-label="The Wall Street Journal">
-          <img src="/logos/wsj.svg" alt="The Wall Street Journal" class="press-logo-img"/>
-        </a>
-        <a href="https://www.reuters.com" target="_blank" rel="noopener" class="press-logo-link" aria-label="Reuters">
-          <img src="/logos/reuters.svg" alt="Reuters" class="press-logo-img"/>
-        </a>
-        <a href="https://www.economist.com" target="_blank" rel="noopener" class="press-logo-link" aria-label="The Economist">
-          <img src="/logos/economist.svg" alt="The Economist" class="press-logo-img"/>
-        </a>
-        <a href="https://techcrunch.com" target="_blank" rel="noopener" class="press-logo-link" aria-label="TechCrunch">
-          <img src="/logos/techcrunch.svg" alt="TechCrunch" class="press-logo-img"/>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══ STATS ═══ -->
-  <section class="stats-section">
-    <div class="container">
-      <div class="stats-grid">
-        <div class="stat-card reveal">
-          <span class="stat-card__num"><span data-count="500">0</span><span class="suffix">+</span></span>
-          <span class="stat-card__label">Models Evaluated</span>
-          <span class="stat-card__meta">Across 42 benchmark suites</span>
-          <svg class="stat-card__spark" viewBox="0 0 100 24" preserveAspectRatio="none" aria-hidden="true">
-            <path d="M0,18 L12,16 L24,17 L36,13 L48,14 L60,10 L72,11 L84,6 L100,4" fill="none" stroke="#C97B2D" stroke-width="1.5" stroke-linecap="round"/>
-            <circle cx="100" cy="4" r="2" fill="#C97B2D"/>
-          </svg>
-        </div>
-        <div class="stat-card reveal" data-delay="1">
-          <span class="stat-card__num"><span data-count="42">0</span></span>
-          <span class="stat-card__label">Enterprise Benchmarks</span>
-          <span class="stat-card__meta">Published, peer-reviewed</span>
-          <svg class="stat-card__spark" viewBox="0 0 100 24" preserveAspectRatio="none" aria-hidden="true">
-            <rect x="2" y="14" width="6" height="8" fill="#C97B2D" opacity="0.4" rx="1"/>
-            <rect x="12" y="11" width="6" height="11" fill="#C97B2D" opacity="0.5" rx="1"/>
-            <rect x="22" y="13" width="6" height="9" fill="#C97B2D" opacity="0.5" rx="1"/>
-            <rect x="32" y="9" width="6" height="13" fill="#C97B2D" opacity="0.6" rx="1"/>
-            <rect x="42" y="10" width="6" height="12" fill="#C97B2D" opacity="0.6" rx="1"/>
-            <rect x="52" y="7" width="6" height="15" fill="#C97B2D" opacity="0.7" rx="1"/>
-            <rect x="62" y="8" width="6" height="14" fill="#C97B2D" opacity="0.7" rx="1"/>
-            <rect x="72" y="5" width="6" height="17" fill="#C97B2D" opacity="0.8" rx="1"/>
-            <rect x="82" y="6" width="6" height="16" fill="#C97B2D" opacity="0.85" rx="1"/>
-            <rect x="92" y="3" width="6" height="19" fill="#C97B2D" rx="1"/>
-          </svg>
-        </div>
-        <div class="stat-card reveal" data-delay="2">
-          <span class="stat-card__num"><span data-count="96">0</span><span class="suffix">%</span></span>
-          <span class="stat-card__label">Prediction Accuracy</span>
-          <span class="stat-card__meta">Trailing 24-month window</span>
-          <svg class="stat-card__spark" viewBox="0 0 100 24" preserveAspectRatio="none" aria-hidden="true">
-            <path d="M0,20 Q25,18 50,10 T100,2" fill="none" stroke="#6D5DF6" stroke-width="1.5" stroke-linecap="round"/>
-            <path d="M0,20 Q25,18 50,10 T100,2 L100,24 L0,24 Z" fill="#6D5DF6" opacity="0.1"/>
-            <circle cx="100" cy="2" r="2" fill="#6D5DF6"/>
-          </svg>
-        </div>
-        <div class="stat-card reveal" data-delay="3">
-          <span class="stat-card__num"><span data-count="180">0</span><span class="suffix">+</span></span>
-          <span class="stat-card__label">Vendor Assessments</span>
-          <span class="stat-card__meta">Disclosed &amp; on-the-record</span>
-          <svg class="stat-card__spark" viewBox="0 0 100 24" preserveAspectRatio="none" aria-hidden="true">
-            <path d="M0,16 L14,14 L28,15 L42,10 L56,12 L70,7 L84,8 L100,3" fill="none" stroke="#C97B2D" stroke-width="1.5" stroke-linecap="round"/>
-            <circle cx="100" cy="3" r="2" fill="#C97B2D"/>
-          </svg>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══ FEATURED REPORT ═══ -->
-  <section class="section section--dark">
-    <div class="container report-spotlight">
-      <div class="report-spotlight__info reveal">
-        <span class="report-spotlight__label">Featured Report &middot; Q3 2026</span>
-        <h2 class="text-balance">Enterprise AI Readiness Index</h2>
-        <p>
-          Comprehensive evaluation of 24 enterprise AI platforms across deployment speed,
-          governance readiness, model flexibility, and production reliability. Methodology
-          published. Conflicts disclosed. Data on-the-record.
-        </p>
-        <div class="report-spotlight__meta">
-          <span>Research Team</span>
-          <span>48 pages</span>
-          <span>24 vendors scored</span>
-          <span>Jul 2026</span>
-        </div>
-        <div style="display:flex;gap:1rem;flex-wrap:wrap;">
-          <a href="/insights" class="btn">Read the Report</a>
-          <a href="/methodology" class="btn btn-outline--light">Methodology</a>
-        </div>
-      </div>
-
-      <div class="report-spotlight__card reveal" data-delay="1">
-        <div class="report-mockup">
-          <span class="report-mockup__badge">AI &amp; Machine Learning</span>
-          <h3 class="report-mockup__title">Enterprise AI Readiness Index &middot; Q3 2026</h3>
-          <div class="report-mockup__divider"></div>
-          <div class="report-mockup__bars">
-            <div class="report-mockup__bar-row">
-              <span class="report-mockup__bar-label">Model Governance</span>
-              <div class="report-mockup__bar-track"><div class="report-mockup__bar-fill" style="width:89%"></div></div>
-              <span class="report-mockup__bar-val">89</span>
+      <span class="section-label">Latest Intelligence</span>
+      <h2 class="section-title">Recent AI & Machine Learning research</h2>
+      <div class="reports-grid">
+        {posts.map((post, i) => (
+          <a href={`/research/${post.id}`} class="report-card">
+            <img class="report-img" src={`https://picsum.photos/seed/${post.id}/600/400.jpg`} alt={post.data.title} loading="lazy" />
+            <div class="report-body">
+              <span class="report-tag">{post.data.outputFormat || 'Report'}</span>
+              <h3 class="report-title">{post.data.title}</h3>
+              <p class="report-desc">{post.data.description}</p>
+              <div class="report-meta">
+                <span>{post.data.author}</span>
+                <span>{new Date(post.data.publishDate).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}</span>
+              </div>
             </div>
-            <div class="report-mockup__bar-row">
-              <span class="report-mockup__bar-label">Deployment Speed</span>
-              <div class="report-mockup__bar-track"><div class="report-mockup__bar-fill" style="width:76%"></div></div>
-              <span class="report-mockup__bar-val">76</span>
-            </div>
-            <div class="report-mockup__bar-row">
-              <span class="report-mockup__bar-label">Cost Efficiency</span>
-              <div class="report-mockup__bar-track"><div class="report-mockup__bar-fill" style="width:68%"></div></div>
-              <span class="report-mockup__bar-val">68</span>
-            </div>
-            <div class="report-mockup__bar-row">
-              <span class="report-mockup__bar-label">Enterprise Support</span>
-              <div class="report-mockup__bar-track"><div class="report-mockup__bar-fill" style="width:82%"></div></div>
-              <span class="report-mockup__bar-val">82</span>
-            </div>
-          </div>
-        </div>
+          </a>
+        ))}
+      </div>
+      <div style="text-align:center;margin-top:3rem;">
+        <a href="/insights" class="btn btn-primary">View All Research →</a>
       </div>
     </div>
   </section>
 
-  <!-- ═══ METHODOLOGY VISUAL ═══ -->
-  <section class="section">
+  <!-- ═══ METHODOLOGY ═══ -->
+  <section class="section section-dark" style="padding-top:4rem;">
     <div class="container">
-      <div class="section__header reveal">
-        <div>
-          <span class="section__label">How We Work</span>
-          <h2 class="text-balance">Rigor, not opinions.</h2>
-        </div>
-        <a href="/methodology" class="link-arrow">Full methodology</a>
-      </div>
-
-      <div class="method-flow reveal" data-delay="1">
-        <div class="method-step">
-          <div class="method-step__icon">
-            <svg viewBox="0 0 40 40" fill="none" aria-hidden="true">
-              <rect x="6" y="8" width="28" height="24" rx="3" stroke="currentColor" stroke-width="1.5"/>
-              <line x1="12" y1="15" x2="28" y2="15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-              <line x1="12" y1="20" x2="24" y2="20" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-              <line x1="12" y1="25" x2="26" y2="25" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-              <circle cx="30" cy="25" r="2" fill="#E09543"/>
-            </svg>
+      <span class="section-label">How We Work</span>
+      <h2 class="section-title">Rigor, not opinions.</h2>
+      <div class="method-grid">
+        {methodology.map(m => (
+          <div class="method-step">
+            <div class="method-num">{m.step}</div>
+            <h3>{m.title}</h3>
+            <p>{m.desc}</p>
           </div>
-          <span class="method-step__num mono">01</span>
-          <h3>Define criteria</h3>
-          <p>Fixed &amp; published before any vendor is named.</p>
-        </div>
-        <div class="method-connector" aria-hidden="true"></div>
-        <div class="method-step">
-          <div class="method-step__icon">
-            <svg viewBox="0 0 40 40" fill="none" aria-hidden="true">
-              <circle cx="20" cy="20" r="12" stroke="currentColor" stroke-width="1.5"/>
-              <circle cx="20" cy="20" r="5" fill="#E09543" opacity="0.3"/>
-              <circle cx="20" cy="20" r="2.5" fill="#E09543"/>
-              <line x1="20" y1="8" x2="20" y2="14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-              <line x1="32" y1="20" x2="26" y2="20" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-              <line x1="20" y1="32" x2="20" y2="26" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-              <line x1="8" y1="20" x2="14" y2="20" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-            </svg>
-          </div>
-          <span class="method-step__num mono">02</span>
-          <h3>Collect evidence</h3>
-          <p>Primary data, interviews, filings — on the record.</p>
-        </div>
-        <div class="method-connector" aria-hidden="true"></div>
-        <div class="method-step">
-          <div class="method-step__icon">
-            <svg viewBox="0 0 40 40" fill="none" aria-hidden="true">
-              <path d="M8 30 L8 14 L16 10 L24 14 L32 10 L32 26 L24 30 L16 26 L8 30 Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
-              <circle cx="20" cy="20" r="3" fill="#E09543"/>
-              <path d="M14 16 L20 20 L26 16" stroke="#E09543" stroke-width="1.5"/>
-            </svg>
-          </div>
-          <span class="method-step__num mono">03</span>
-          <h3>Independent review</h3>
-          <p>Named reviewers evaluate methodology &amp; evidence.</p>
-        </div>
-        <div class="method-connector" aria-hidden="true"></div>
-        <div class="method-step">
-          <div class="method-step__icon">
-            <svg viewBox="0 0 40 40" fill="none" aria-hidden="true">
-              <rect x="8" y="10" width="24" height="20" rx="2" stroke="currentColor" stroke-width="1.5"/>
-              <path d="M14 18 L18 22 L26 14" stroke="#E09543" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              <line x1="14" y1="26" x2="26" y2="26" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-            </svg>
-          </div>
-          <span class="method-step__num mono">04</span>
-          <h3>Publish &amp; disclose</h3>
-          <p>Methodology, limitations, conflicts — all public.</p>
-        </div>
+        ))}
       </div>
-    </div>
-  </section>
-
-  <!-- ═══ LATEST INSIGHTS ═══ -->
-  <section class="section">
-    <div class="container">
-      <div class="section__header reveal">
-        <div>
-          <span class="section__label">Latest Intelligence</span>
-          <h2 class="text-balance">Recent AI &amp; Machine Learning research</h2>
-        </div>
-        <a href="/insights" class="link-arrow">View all insights</a>
-      </div>
-      {posts.length > 0 ? (
-        <div class="insights-grid">
-          {posts.map((post, i) => (
-            <article class="insight-card reveal" data-delay={String((i % 3) + 1)}>
-              <span class="insight-card__tag">{post.data.outputFormat || 'Report'}</span>
-              <h3><a href={'/research/' + post.id}>{post.data.title}</a></h3>
-              <p>{post.data.description}</p>
-              <span class="insight-card__meta">
-                {post.data.author} &middot; {new Date(post.data.publishDate).toLocaleDateString('en-US', { month:'short', year:'numeric' })}
-              </span>
-            </article>
-          ))}
-        </div>
-      ) : (
-        <div class="insights-grid">
-          <article class="insight-card reveal" data-delay="1">
-            <span class="insight-card__tag">Benchmark</span>
-            <h3><a href="/insights">Foundation Model Cost-Performance Matrix 2026</a></h3>
-            <p>Total-cost-of-ownership analysis across 18 frontier models, measured against 12 production workloads.</p>
-            <span class="insight-card__meta">Research Team &middot; Jul 2026</span>
-          </article>
-          <article class="insight-card reveal" data-delay="2">
-            <span class="insight-card__tag">Analysis</span>
-            <h3><a href="/insights">AI Agent Infrastructure: Who Owns the Orchestration Layer?</a></h3>
-            <p>Value-chain mapping across 47 vendors, with exclusive deployment data from 120 enterprise rollouts.</p>
-            <span class="insight-card__meta">Research Team &middot; Jun 2026</span>
-          </article>
-          <article class="insight-card reveal" data-delay="3">
-            <span class="insight-card__tag">Primer</span>
-            <h3><a href="/insights">RAG Architecture Patterns for Regulated Industries</a></h3>
-            <p>Design patterns that satisfy SEC, HIPAA, and GDPR constraints — with reference implementations.</p>
-            <span class="insight-card__meta">Research Team &middot; Jun 2026</span>
-          </article>
-        </div>
-      )}
-    </div>
-  </section>
-
-  <!-- ═══ INSIGHTS FEED ═══ -->
-  <section class="section section--soft">
-    <div class="container">
-      <div class="reveal">
-        <span class="section__label">Market Commentary</span>
-        <h2 class="text-balance" style="margin-bottom:2.5rem;">Insights feed</h2>
-      </div>
-      <div class="feed-list reveal" data-delay="1">
-        <a href="/insights" class="feed-item">
-          <span class="feed-item__tag">Benchmark</span>
-          <span class="feed-item__title">Foundation Model Cost-Performance Matrix 2026</span>
-          <span class="feed-item__date">Jul 2026</span>
-        </a>
-        <a href="/insights" class="feed-item">
-          <span class="feed-item__tag">Analysis</span>
-          <span class="feed-item__title">AI Agent Infrastructure: Who Owns the Orchestration Layer?</span>
-          <span class="feed-item__date">Jun 2026</span>
-        </a>
-        <a href="/insights" class="feed-item">
-          <span class="feed-item__tag">Primer</span>
-          <span class="feed-item__title">RAG Architecture Patterns for Regulated Industries</span>
-          <span class="feed-item__date">Jun 2026</span>
-        </a>
-        <a href="/insights" class="feed-item">
-          <span class="feed-item__tag">Report</span>
-          <span class="feed-item__title">LLM Fine-Tuning Economics: Build vs Buy Decision Framework</span>
-          <span class="feed-item__date">May 2026</span>
-        </a>
-        <a href="/insights" class="feed-item">
-          <span class="feed-item__tag">Benchmark</span>
-          <span class="feed-item__title">Multi-Modal AI: Vision-Language Model Enterprise Readiness</span>
-          <span class="feed-item__date">May 2026</span>
-        </a>
-        <a href="/insights" class="feed-item">
-          <span class="feed-item__tag">Analysis</span>
-          <span class="feed-item__title">AI Safety &amp; Alignment: Enterprise Compliance Landscape</span>
-          <span class="feed-item__date">Apr 2026</span>
-        </a>
+      <div style="text-align:center;margin-top:2rem;">
+        <a href="/methodology" style="color:var(--copper-light);text-decoration:none;font-size:0.875rem;">Full methodology →</a>
       </div>
     </div>
   </section>
 
   <!-- ═══ NEWSLETTER ═══ -->
-  <section class="section section--dark">
-    <div class="container newsletter-section">
-      <div class="newsletter-section__content reveal">
-        <span class="section__label">The Briefing</span>
-        <h2 class="text-balance">Get the <em style="font-style:italic;color:var(--copper-300);font-weight:400;">AI &amp; Machine Learning</em> Briefing</h2>
+  <section class="section" style="background:linear-gradient(135deg, #0A1128, #111D3A);">
+    <div class="container newsletter">
+      <div>
+        <span class="section-label">The Briefing</span>
+        <h2>Get the AI & Machine Learning Briefing</h2>
         <p>Weekly research digest with key findings, market signals, and analysis — delivered to your inbox. No noise. No sponsored content. Ever.</p>
-        <div class="newsletter-section__proof">
+        <div class="newsletter-stats">
           <span><strong>2,400+</strong> subscribers</span>
           <span><strong>82%</strong> open rate</span>
           <span><strong>Free</strong> forever</span>
         </div>
-
-        <!-- Email preview mockup -->
-        <div class="email-preview">
-          <div class="email-preview__header">
-            <span class="email-preview__from mono">briefing@hargroveresearch.com</span>
-            <span class="email-preview__date mono">Mon 9:00 AM</span>
-          </div>
-          <div class="email-preview__subject">
-            <span class="email-preview__badge">Issue #47</span>
-            <span>Enterprise AI Readiness Q3 &middot; GPT-5 benchmarks &middot; EU AI Act update</span>
-          </div>
-          <div class="email-preview__body">
-            <p><strong>This week:</strong> GPT-5 hits 94.2% on structured reasoning. RAG shows 3.7&times; cost edge over fine-tuning. EU AI Act Phase 2 takes effect Sept 2026.</p>
-            <div class="email-preview__tags">
-              <span>Benchmark</span><span>Policy</span><span>Capital</span>
-            </div>
-          </div>
-        </div>
       </div>
-      <div class="newsletter-section__form reveal" data-delay="1">
-        <NewsletterSignup />
+      <div class="newsletter-form">
+        <input type="email" placeholder="Your email address" />
+        <button class="btn btn-primary" style="width:100%;">Subscribe to The Briefing →</button>
+        <p style="font-size:0.75rem;color:rgba(199,208,232,0.4);margin-top:0.75rem;text-align:center;">No spam. Unsubscribe anytime.</p>
       </div>
     </div>
   </section>
 
-</BaseLayout>
+  <!-- ═══ FOOTER ═══ -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-brand">Hargrove Research Group</div>
+          <p style="line-height:1.7;max-width:320px;font-size:0.9375rem;">Independent, evidence-based research for the AI era. Benchmarked. Reviewed. Disclosed.</p>
+          <p style="margin-top:1rem;font-size:0.8125rem;color:rgba(199,208,232,0.4);line-height:1.7;">110 Wall Street, 11th Floor<br/>New York, NY 10005</p>
+        </div>
+        <div>
+          <p class="footer-heading">Contact</p>
+          <ul>
+            <li><a href="mailto:research@hargroveresearch.com">research@hargroveresearch.com</a></li>
+            <li><a href="mailto:editorial@hargroveresearch.com">editorial@hargroveresearch.com</a></li>
+            <li><a href="mailto:corrections@hargroveresearch.com">corrections@hargroveresearch.com</a></li>
+            <li>+1 (212) 555-0234</li>
+          </ul>
+        </div>
+        <div>
+          <p class="footer-heading">Authority</p>
+          <ul>
+            <li><a href="/methodology">Methodology</a></li>
+            <li><a href="/editorial-policy">Editorial Policy</a></li>
+            <li><a href="/disclosure-policy">Disclosure Policy</a></li>
+            <li><a href="/reviewers">Reviewers</a></li>
+            <li><a href="/submit-evidence">Submit Evidence</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="footer-heading">Trust Signals</p>
+          <ul>
+            <li>No pay-to-rank</li>
+            <li>Published methodology</li>
+            <li>Named reviewers</li>
+            <li>Open corrections</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 Hargrove Research Group · All rights reserved</p>
+      </div>
+    </div>
+  </footer>
 
-<!-- Hero canvas: WebGL-style particle network with glow effects -->
-<script>
-(function() {
-  var canvas = document.getElementById('hero-canvas');
-  if (!canvas) return;
-  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (reduced) return;
-
-  var ctx = canvas.getContext('2d');
-  var dpr = Math.min(window.devicePixelRatio || 1, 2);
-  var w = 0, h = 0;
-  var nodes = [];
-  var NODE_COUNT = 80;
-  var LINK_DIST = 160;
-  var mouse = { x: -9999, y: -9999 };
-  var hueShift = 0;
-
-  function resize() {
-    var rect = canvas.parentElement.getBoundingClientRect();
-    w = rect.width;
-    h = rect.height;
-    canvas.width = w * dpr;
-    canvas.height = h * dpr;
-    canvas.style.width = w + 'px';
-    canvas.style.height = h + 'px';
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-  }
-
-  function initNodes() {
-    nodes = [];
-    for (var i = 0; i < NODE_COUNT; i++) {
-      nodes.push({
-        x: Math.random() * w,
-        y: Math.random() * h,
-        vx: (Math.random() - 0.5) * 0.6,
-        vy: (Math.random() - 0.5) * 0.6,
-        r: 1.5 + Math.random() * 2.5,
-        c: Math.random() > 0.7 ? 'copper' : (Math.random() > 0.5 ? 'signal' : 'ink'),
-        pulse: Math.random() * Math.PI * 2
-      });
-    }
-  }
-
-  function step() {
-    ctx.clearRect(0, 0, w, h);
-    hueShift += 0.2;
-
-    // Update + draw nodes with pulsing effect
-    for (var i = 0; i < nodes.length; i++) {
-      var a = nodes[i];
-      a.x += a.vx; a.y += a.vy;
-      a.pulse += 0.03;
-      
-      if (a.x < 0 || a.x > w) a.vx *= -1;
-      if (a.y < 0 || a.y > h) a.vy *= -1;
-
-      // Mouse interaction with attraction
-      var dx = a.x - mouse.x, dy = a.y - mouse.y;
-      var d2 = dx*dx + dy*dy;
-      if (d2 < 200*200 && d2 > 0.01) {
-        var d = Math.sqrt(d2);
-        var f = (200 - d) / 200 * 0.4;
-        a.vx += (dx/d) * f;
-        a.vy += (dy/d) * f;
-      }
-
-      // Damping
-      a.vx *= 0.99; a.vy *= 0.99;
-      if (Math.abs(a.vx) < 0.03) a.vx += (Math.random() - 0.5) * 0.03;
-      if (Math.abs(a.vy) < 0.03) a.vy += (Math.random() - 0.5) * 0.03;
-    }
-
-    // Glow effect before drawing
-    ctx.globalCompositeOperation = 'lighter';
-    
-    // Links with gradient opacity
-    for (var i = 0; i < nodes.length; i++) {
-      for (var j = i + 1; j < nodes.length; j++) {
-        var a = nodes[i], b = nodes[j];
-        var dx = a.x - b.x, dy = a.y - b.y;
-        var d = Math.sqrt(dx*dx + dy*dy);
-        if (d < LINK_DIST) {
-          var alpha = (1 - d / LINK_DIST) * 0.35;
-          var hue = (hueShift + i * 5) % 360;
-          ctx.strokeStyle = `hsla(${hue}, 70%, 70%, ${alpha})`;
-          ctx.lineWidth = 0.8;
-          ctx.beginPath();
-          ctx.moveTo(a.x, a.y);
-          ctx.lineTo(b.x, b.y);
-          ctx.stroke();
+  <script>
+    // Scroll reveal
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
         }
-      }
-    }
-    
-    ctx.globalCompositeOperation = 'source-over';
+      });
+    }, { threshold: 0.1 });
 
-    // Nodes with glow
-    for (var i = 0; i < nodes.length; i++) {
-      var n = nodes[i];
-      var pulseScale = 1 + Math.sin(n.pulse) * 0.15;
-      var radius = n.r * pulseScale;
-      
-      // Glow shadow
-      var glowColor = n.c === 'copper' ? '224, 149, 67' : 
-                     n.c === 'signal' ? '109, 93, 246' : '199, 208, 232';
-      
-      ctx.shadowBlur = 15;
-      ctx.shadowColor = `rgba(${glowColor}, 0.6)`;
-      
-      if (n.c === 'copper') {
-        ctx.fillStyle = `rgba(224, 149, 67, ${0.7 + Math.sin(n.pulse) * 0.2})`;
-      } else if (n.c === 'signal') {
-        ctx.fillStyle = `rgba(109, 93, 246, ${0.7 + Math.sin(n.pulse) * 0.2})`;
-      } else {
-        ctx.fillStyle = `rgba(199, 208, 232, ${0.6 + Math.sin(n.pulse) * 0.15})`;
-      }
-      
-      ctx.beginPath();
-      ctx.arc(n.x, n.y, radius, 0, Math.PI * 2);
-      ctx.fill();
-      
-      // Inner highlight
-      ctx.shadowBlur = 0;
-      ctx.fillStyle = 'rgba(255,255,255,0.4)';
-      ctx.beginPath();
-      ctx.arc(n.x - radius*0.3, n.y - radius*0.3, radius*0.4, 0, Math.PI * 2);
-      ctx.fill();
-    }
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-    requestAnimationFrame(step);
-  }
-
-  function onMouse(e) {
-    var rect = canvas.getBoundingClientRect();
-    mouse.x = e.clientX - rect.left;
-    mouse.y = e.clientY - rect.top;
-  }
-  function onLeave() { mouse.x = -9999; mouse.y = -9999; }
-
-  resize();
-  initNodes();
-  step();
-
-  window.addEventListener('resize', function() { resize(); initNodes(); }, { passive: true });
-  canvas.parentElement.addEventListener('mousemove', onMouse, { passive: true });
-  canvas.parentElement.addEventListener('mouseleave', onLeave, { passive: true });
-
-  // Timestamp ticker
-  var ts = document.getElementById('hero-timestamp');
-  if (ts) {
-    function updateTs() {
-      var d = new Date();
-      var pad = function(n) { return String(n).padStart(2, '0'); };
-      ts.textContent = pad(d.getHours()) + ':' + pad(d.getMinutes()) + ':' + pad(d.getSeconds()) + ' UTC' + (d.getTimezoneOffset() <= 0 ? '+' : '-') + Math.abs(d.getTimezoneOffset()/60);
-    }
-    updateTs();
-    setInterval(updateTs, 1000);
-  }
-})();
-</script>
+    // Counter animation
+    document.querySelectorAll('[data-count]').forEach(el => {
+      const target = parseFloat(el.dataset.count);
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            let start = performance.now();
+            function tick(now) {
+              const p = Math.min((now - start) / 1600, 1);
+              const eased = 1 - Math.pow(1 - p, 3);
+              el.textContent = (target * eased).toFixed(1);
+              if (p < 1) requestAnimationFrame(tick);
+            }
+            requestAnimationFrame(tick);
+            obs.unobserve(el);
+          }
+        });
+      }, { threshold: 0.4 });
+      obs.observe(el);
+    });
+  </script>
+</BaseLayout>
