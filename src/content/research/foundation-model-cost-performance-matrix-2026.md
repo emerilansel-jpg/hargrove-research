@@ -17,6 +17,7 @@ evidenceClasses:
 disclosure: "No vendor compensated Hargrove Research Group or provided preview access to proprietary models. All cost data sourced from published APIs, customer deployments, and internal TCO calculations conducted June 2026."
 limitations: "Analysis excludes R&D overhead and personnel costs. API-based pricing reflects public tiers; enterprise discounts may vary. GPU allocation scenarios assume spot-instance availability."
 featured: true
+heroImage: "/images/foundation-model-cost.jpg"
 status: "Live"
 ---
 

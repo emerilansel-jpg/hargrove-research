@@ -16,6 +16,7 @@ evidenceClasses:
 disclosure: "No commercial relationships with any vendor or consulting firm referenced. Regulatory analysis based on public filings and published guidance."
 limitations: "Regulatory interpretations evolve; consult legal counsel before production deployment. Reference implementations tested on AWS and Azure only."
 status: "Live"
+heroImage: "/images/rag-architecture.jpg"
 ---
 
 ## Executive Summary

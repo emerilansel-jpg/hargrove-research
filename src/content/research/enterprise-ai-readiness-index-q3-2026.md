@@ -17,6 +17,7 @@ evidenceClasses:
 disclosure: "Hargrove Research Group maintains no commercial relationships with any vendor evaluated in this report. No vendor provided compensation, preview access, or editorial input. All data sourced from public filings, published benchmarks, and on-the-record customer interviews conducted between May-July 2026."
 limitations: "Analysis based on publicly available data as of July 2026. Pricing negotiated under NDA is excluded. Deployment speed metrics reflect median Fortune 500 implementations and may vary by industry vertical."
 featured: true
+heroImage: "/images/enterprise-ai-readiness.jpg"
 status: "Live"
 ---
 

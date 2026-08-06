@@ -16,6 +16,7 @@ evidenceClasses:
 disclosure: "No compensation from any entity subject to EU AI Act requirements. Survey responses anonymized and aggregated."
 limitations: "Self-reported compliance data may overstate readiness. Regulatory interpretation continues to evolve."
 status: "Live"
+heroImage: "/images/eu-ai-act-compliance.jpg"
 ---
 
 ## Executive Summary

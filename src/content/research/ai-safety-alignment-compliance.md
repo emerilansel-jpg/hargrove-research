@@ -15,6 +15,7 @@ evidenceClasses:
 disclosure: "No compensation from any organization evaluated for compliance maturity."
 limitations: "Regulatory requirements evolve rapidly; consult counsel before deployment."
 status: "Live"
+heroImage: "/images/ai-safety-alignment.jpg"
 ---
 
 ## Executive Summary

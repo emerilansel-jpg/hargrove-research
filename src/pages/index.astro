@@ -25,7 +25,12 @@ const methodology = [
 ];
 
 const pressLogos = [
-  'Financial Times', 'Bloomberg', 'Wall Street Journal', 'Reuters', 'The Economist', 'TechCrunch'
+  { name: 'Financial Times', file: 'financial-times.svg' },
+  { name: 'Bloomberg', file: 'bloomberg.svg' },
+  { name: 'Wall Street Journal', file: 'wsj.svg' },
+  { name: 'Reuters', file: 'reuters.svg' },
+  { name: 'The Economist', file: 'economist.svg' },
+  { name: 'TechCrunch', file: 'techcrunch.svg' },
 ];
 ---
 
@@ -198,12 +203,16 @@ const pressLogos = [
       display: flex; justify-content: center; align-items: center;
       gap: 3rem; flex-wrap: wrap;
     }
-    .press-logo {
-      font-family: 'Instrument Serif', serif;
-      font-size: 1.125rem; color: #64748B; opacity: 0.6;
-      transition: opacity 0.3s ease;
+    .press-logo-link {
+      display: flex; align-items: center; justify-content: center;
+      min-height: 44px; text-decoration: none;
     }
-    .press-logo:hover { opacity: 1; }
+    .press-logo-img {
+      height: 32px; width: auto; opacity: 0.5;
+      filter: grayscale(100%);
+      transition: opacity 0.3s ease, filter 0.3s ease;
+    }
+    .press-logo-link:hover .press-logo-img { opacity: 0.85; filter: grayscale(0%); }
 
     /* Reports Grid */
     .reports-grid {
@@ -309,39 +318,11 @@ const pressLogos = [
     .newsletter-form input::placeholder { color: rgba(199,208,232,0.4); }
     .newsletter-form input:focus { border-color: var(--copper); }
 
-    /* Footer */
-    .site-footer {
-      background: linear-gradient(180deg, #0A1128 0%, #050A18 100%);
-      padding: 4rem 0 2rem; color: rgba(199,208,232,0.7);
-    }
-    .footer-grid {
-      display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr;
-      gap: 3rem; margin-bottom: 3rem;
-    }
-    .footer-brand {
-      font-family: 'Instrument Serif', serif;
-      font-size: 1.5rem; color: #fff; margin-bottom: 1rem;
-    }
-    .footer-heading {
-      font-size: 0.6875rem; text-transform: uppercase;
-      letter-spacing: 0.16em; color: var(--copper-light);
-      margin-bottom: 1rem;
-    }
-    .footer-grid ul { list-style: none; line-height: 2; font-size: 0.875rem; }
-    .footer-grid a { color: rgba(199,208,232,0.7); text-decoration: none; transition: color 0.2s; }
-    .footer-grid a:hover { color: var(--copper-light); }
-    .footer-bottom {
-      border-top: 1px solid rgba(199,208,232,0.1);
-      padding-top: 1.5rem; text-align: center;
-      font-size: 0.8125rem; color: rgba(199,208,232,0.4);
-    }
-
     /* Responsive */
     @media (max-width: 768px) {
       .kpi-strip { grid-template-columns: repeat(2, 1fr); }
       .method-grid { grid-template-columns: repeat(2, 1fr); }
       .newsletter { grid-template-columns: 1fr; }
-      .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
       .reports-grid { grid-template-columns: 1fr; }
     }
     @media (max-width: 480px) {
@@ -384,7 +365,11 @@ const pressLogos = [
     <div class="container">
       <p class="press-label">As featured in</p>
       <div class="press-logos">
-        {pressLogos.map(name => <span class="press-logo">{name}</span>)}
+        {pressLogos.map(logo => (
+          <a href={`https://www.${logo.name.toLowerCase().replace(/ /g, '')}.com`} target="_blank" rel="noopener" class="press-logo-link">
+            <img src={`/logos/${logo.file}`} alt={logo.name} class="press-logo-img" loading="lazy" />
+          </a>
+        ))}
       </div>
     </div>
   </div>
@@ -397,7 +382,7 @@ const pressLogos = [
       <div class="reports-grid">
         {posts.map((post, i) => (
           <a href={`/research/${post.id}`} class="report-card">
-            <img class="report-img" src={`https://picsum.photos/seed/${post.id}/600/400.jpg`} alt={post.data.title} loading="lazy" />
+            <img class="report-img" src={post.data.heroImage || `/logos/og-image.svg`} alt={post.data.title} loading="lazy" />
             <div class="report-body">
               <span class="report-tag">{post.data.outputFormat || 'Report'}</span>
               <h3 class="report-title">{post.data.title}</h3>
@@ -450,56 +435,14 @@ const pressLogos = [
         </div>
       </div>
       <div class="newsletter-form">
-        <input type="email" placeholder="Your email address" />
-        <button class="btn btn-primary" style="width:100%;">Subscribe to The Briefing →</button>
-        <p style="font-size:0.75rem;color:rgba(199,208,232,0.4);margin-top:0.75rem;text-align:center;">No spam. Unsubscribe anytime.</p>
+        <form id="newsletter-form">
+          <input type="email" name="email" placeholder="Your email address" required />
+          <button type="submit" class="btn btn-primary" style="width:100%;">Subscribe to The Briefing →</button>
+          <p style="font-size:0.75rem;color:rgba(199,208,232,0.4);margin-top:0.75rem;text-align:center;">No spam. Unsubscribe anytime.</p>
+        </form>
       </div>
     </div>
   </section>
-
-  <!-- ═══ FOOTER ═══ -->
-  <footer class="site-footer">
-    <div class="container">
-      <div class="footer-grid">
-        <div>
-          <div class="footer-brand">Hargrove Research Group</div>
-          <p style="line-height:1.7;max-width:320px;font-size:0.9375rem;">Independent, evidence-based research for the AI era. Benchmarked. Reviewed. Disclosed.</p>
-          <p style="margin-top:1rem;font-size:0.8125rem;color:rgba(199,208,232,0.4);line-height:1.7;">110 Wall Street, 11th Floor<br/>New York, NY 10005</p>
-        </div>
-        <div>
-          <p class="footer-heading">Contact</p>
-          <ul>
-            <li><a href="mailto:research@hargroveresearch.com">research@hargroveresearch.com</a></li>
-            <li><a href="mailto:editorial@hargroveresearch.com">editorial@hargroveresearch.com</a></li>
-            <li><a href="mailto:corrections@hargroveresearch.com">corrections@hargroveresearch.com</a></li>
-            <li>+1 (212) 555-0234</li>
-          </ul>
-        </div>
-        <div>
-          <p class="footer-heading">Authority</p>
-          <ul>
-            <li><a href="/methodology">Methodology</a></li>
-            <li><a href="/editorial-policy">Editorial Policy</a></li>
-            <li><a href="/disclosure-policy">Disclosure Policy</a></li>
-            <li><a href="/reviewers">Reviewers</a></li>
-            <li><a href="/submit-evidence">Submit Evidence</a></li>
-          </ul>
-        </div>
-        <div>
-          <p class="footer-heading">Trust Signals</p>
-          <ul>
-            <li>No pay-to-rank</li>
-            <li>Published methodology</li>
-            <li>Named reviewers</li>
-            <li>Open corrections</li>
-          </ul>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <p>© 2026 Hargrove Research Group · All rights reserved</p>
-      </div>
-    </div>
-  </footer>
 
   <script>
     // Scroll reveal
@@ -513,6 +456,37 @@ const pressLogos = [
     }, { threshold: 0.1 });
 
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Newsletter form
+    var nlForm = document.getElementById('newsletter-form');
+    if (nlForm) {
+      nlForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        var email = nlForm.querySelector('input[type="email"]').value;
+        var btn = nlForm.querySelector('button[type="submit"]');
+        var origText = btn.textContent;
+        btn.textContent = 'Subscribing...';
+        btn.disabled = true;
+        fetch('https://research-api.n311311.workers.dev/api/form/newsletter', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            site: 'hargroveresearch.com',
+            name: 'Newsletter Subscriber',
+            email: email,
+            message: 'Subscribe to Research Briefing',
+            website: ''
+          })
+        }).then(function(r) { return r.json(); }).then(function(d) {
+          btn.textContent = '✓ Subscribed!';
+          nlForm.querySelector('input[type="email"]').value = '';
+          setTimeout(function() { btn.textContent = origText; btn.disabled = false; }, 3000);
+        }).catch(function() {
+          btn.textContent = 'Error — try again';
+          setTimeout(function() { btn.textContent = origText; btn.disabled = false; }, 3000);
+        });
+      });
+    }
 
     // Counter animation
     document.querySelectorAll('[data-count]').forEach(el => {

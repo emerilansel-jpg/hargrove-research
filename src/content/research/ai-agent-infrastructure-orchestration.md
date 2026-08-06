@@ -17,6 +17,7 @@ evidenceClasses:
 disclosure: "No vendor provided compensation or preview access. Exclusive deployment interviews conducted between April-May 2026 with CTOs and AI directors from 120 Fortune 500 companies."
 limitations: "Patent analysis covers only published filings; trade secrets remain unanalyzed. Venture capital figures reflect disclosed rounds and may omit secondary transactions."
 featured: false
+heroImage: "/images/ai-agent-infrastructure.jpg"
 status: "Live"
 ---
 

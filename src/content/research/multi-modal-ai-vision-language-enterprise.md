@@ -15,6 +15,7 @@ evidenceClasses:
 disclosure: "All benchmarks conducted independently. No vendor provided compensation or preview access."
 limitations: "Industrial inspection scenarios tested on limited sample sizes. Accessibility evaluation ongoing."
 status: "Live"
+heroImage: "/images/multi-modal-ai.jpg"
 ---
 
 ## Executive Summary

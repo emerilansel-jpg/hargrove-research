@@ -15,6 +15,7 @@ evidenceClasses:
 disclosure: "No vendor compensation. All GPU pricing data from public cloud spot markets."
 limitations: "Spot instance pricing volatile; stable pricing may differ by 40%. Personnel costs for model ops excluded."
 status: "Live"
+heroImage: "/images/llm-fine-tuning.jpg"
 ---
 
 ## Executive Summary

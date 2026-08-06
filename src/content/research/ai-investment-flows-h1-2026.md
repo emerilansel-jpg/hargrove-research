@@ -15,6 +15,7 @@ evidenceClasses:
 disclosure: "All investment data from public sources. No compensation from any fund or portfolio company."
 limitations: "Secondary market transactions and strategic M&A excluded. Private valuations may lag market conditions."
 status: "Live"
+heroImage: "/images/ai-investment-flows.jpg"
 ---
 
 ## Executive Summary
