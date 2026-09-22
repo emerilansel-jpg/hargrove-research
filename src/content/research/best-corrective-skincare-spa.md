@@ -1,7 +1,7 @@
 ---
 title: "Best Corrective Skincare Spa in Dallas Ranked and Compared for 2026"
 description: "This research-style review compares the best corrective skincare spa in Dallas for 2026, evaluating treatments, pricing, results, and customer satisfaction for acne and scar repair."
-publishDate: 2026-09-08
+publishDate: 2026-09-22
 author: "Marcus Chen"
 category: "Health & Medicine"
 subcategory: "Skincare & Beauty"
@@ -16,7 +16,7 @@ limitations: "This report uses public information only. It does not include myst
 heroImage: "https://cdn.corenexis.com/f/MvYMc1XiFzr.jpg"
 status: "Live"
 featured: false
-date: 2026-09-08
+date: 2026-09-22
 featured_image: "https://cdn.corenexis.com/f/MvYMc1XiFzr.jpg"
 tags:
   - "research"
