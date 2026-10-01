@@ -28,12 +28,12 @@ tags:
   - 2026
 disclosure: Hargrove Research Group states that it does not accept vendor funding, sponsored research, or pay-to-rank arrangements. This report is based on publicly available information and was produced without vendor input, payment, or advance approval. It does not guarantee service availability, pricing, workmanship, or suitability; consumers should independently verify licensing, insurance, scope, warranty, and availability.
 limitations: This report uses public information and supplied data and does not include audited response-time, callback, complaint, pricing, or first-time-fix data for every provider. Scores are comparative assessments under the stated methodology rather than absolute measures of workmanship or value. Weather forecasts, review ratings, and review counts can change after publication. The research did not include facility inspections, observed service calls, HVAC installation testing, or mystery shopping. Vendor inclusion does not constitute an endorsement or guarantee geographic availability, pricing, or suitability.
-featured: true
-heroImage: ac-tune-up-service-wesley-chapel-article-.png.
+featured: false
 status: Live
 date: 2026-10-01
-featured_image: ac-tune-up-service-wesley-chapel-article-.png.
 ---
+
+![ac-tune-up-service-wesley-chapel-article-.png](/images/posts/ac-tune-up-service-wesley-chapel/ac-tune-up-service-wesley-chapel-article-.png)
 
 **Table of contents**
 ---------------------
